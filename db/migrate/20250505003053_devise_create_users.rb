@@ -1,3 +1,5 @@
+# Userテーブル
+
 # frozen_string_literal: true
 
 class DeviseCreateUsers < ActiveRecord::Migration[6.1]
@@ -32,6 +34,14 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      # 以下は、deviseのデフォルトではないカラム
+      t.string :nickname,   null: false
+      t.string :user_image, null: false
+      t.text :introduction, null: false
+      # 有効：true / 無効：false
+      t.boolean :is_active, null: false, default: true
+      # 以下は、enumで管理する、{0:admin,1:user}、デフォルトは1とする
+      t.integer :role,      null: false
 
       t.timestamps null: false
     end
