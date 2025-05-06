@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   # sign in後にマイページに転移
   def after_sign_in_path_for(resource)
-    about_path
+    mypage_path
   end
 
   # sign out後にマイページに転移
