@@ -1,2 +1,21 @@
-<h1>Public::Posts#new</h1>
-<p>Find me in app/views/public/posts/new.html.erb</p>
+<h1>画像投稿フォーム</h1>
+<%= form_with model: @post do |f| %>
+
+  <%= f.label :title, "タイトル" %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :body, "説明" %>
+  <%= f.text_area :body, class: "form-control" %>
+
+  <%= f.label :latitude, "緯度" %>
+  <%= f.text_field :latitude, class: "form-control" %>
+
+  <%= f.label :longitude, "経度" %>
+  <%= f.text_field :longitude, class: "form-control" %>
+
+  <%= f.label :image, "写真" %>
+  <%= f.file_field :image, class: "form-control" %>
+
+  <%= f.submit "投稿する", class: "btn btn-success mt-3" %>
+
+<% end %>
