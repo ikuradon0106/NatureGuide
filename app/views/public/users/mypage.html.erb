@@ -1,2 +1,84 @@
-<h1>Public::Users#mypage</h1>
-<p>Find me in app/views/public/users/mypage.html.erb</p>
+<!-- マイページのレイアウト -->
+<div class="container-fluid">
+  <!-- ヘッダー（ナビゲーションメニュー） -->
+  <header class="bg-dark text-white py-3">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/">サイト名</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">ホーム</a></li>
+          <li class="nav-item"><a class="nav-link" href="/mypage">マイページ</a></li>
+          <li class="nav-item"><a class="nav-link" href="/posts">投稿一覧</a></li>
+          <li class="nav-item"><a class="nav-link" href="/settings">設定</a></li>
+          <li class="nav-item"><a class="nav-link" href="/logout">ログアウト</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="row mt-4">
+    <!-- サイドバー -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">ユーザー情報</h5>
+          <img src="user_image.jpg" class="img-fluid rounded-circle mx-auto d-block" alt="プロフィール画像" style="width: 150px;">
+          <h6 class="text-center mt-3">ユーザー名</h6>
+          <p class="text-center">メールアドレス: user@example.com</p>
+          <p class="text-center">自己紹介: こんにちは、私は〇〇です。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <h3>プロフィール情報</h3>
+          <form action="/update_profile" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="nickname" class="form-label">名前:</label>
+              <input type="text" class="form-control" id="nickname" name="nickname" value="ユーザー名">
+            </div>
+            <div class="mb-3">
+              <label for="introduction" class="form-label">自己紹介:</label>
+              <textarea class="form-control" id="introduction" name="introduction">こんにちは、私は〇〇です。</textarea>
+            </div>
+            <div class="mb-3">
+              <label for="user_image" class="form-label">プロフィール画像:</label>
+              <input type="file" class="form-control" id="user_image" name="user_image">
+            </div>
+            <button type="submit" class="btn btn-primary">更新</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3>投稿情報</h3>
+          <p>投稿数: 5</p>
+          <ul class="list-group">
+            <li class="list-group-item">投稿1</li>
+            <li class="list-group-item">投稿2</li>
+            <li class="list-group-item">投稿3</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer class="bg-dark text-white py-3 mt-5">
+    <div class="container text-center">
+      <ul class="list-inline">
+        <li class="list-inline-item"><a class="text-white" href="/privacy-policy">プライバシーポリシー</a></li>
+        <li class="list-inline-item"><a class="text-white" href="/terms">利用規約</a></li>
+        <li class="list-inline-item"><a class="text-white" href="/contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+

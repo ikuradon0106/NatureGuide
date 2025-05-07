@@ -36,12 +36,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       # 以下は、deviseのデフォルトではないカラム
       t.string :nickname,   null: false
-      t.string :user_image, null: false
-      t.text :introduction, null: false
+      t.string :user_image
+      t.text :introduction
       # 有効：true / 無効：false
       t.boolean :is_active, null: false, default: true
       # 以下は、enumで管理する、{0:admin,1:user}、デフォルトは1とする
-      t.integer :role,      null: false
+      t.integer :role
 
       t.timestamps null: false
     end
