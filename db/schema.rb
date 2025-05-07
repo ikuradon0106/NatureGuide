@@ -109,10 +109,10 @@ ActiveRecord::Schema.define(version: 2025_05_06_013127) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "nickname", null: false
-    t.string "user_image", null: false
-    t.text "introduction", null: false
+    t.string "user_image"
+    t.text "introduction"
     t.boolean "is_active", default: true, null: false
-    t.integer "role", null: false
+    t.integer "role"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   # ユーザー側
-  # URL /users/sign_in ...
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -9,58 +8,54 @@ Rails.application.routes.draw do
   }
 
   # 管理者側
-  # URL /admin/sign_in ...
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
 
-  # ユーザー側のrouting設定(controllerやviewのパスだけを変更)
+  # ユーザー側のルーティング(controllerやviewのパスだけを変更)
   scope module: :public do
     root to: "homes#top"
     get 'about', to: "homes#about", as: 'about'
     
-    # users_controller
+    # users関連
     get 'users/mypage', to: "users#mypage", as: 'mypage'
     resources :users, only: [:edit, :show, :update]
     get 'users/unsubscribe', to: "users#unsubscribe"
     get 'users/withdraw', to: "users#withdraw"
 
-    # posts_controller
-    resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
-      # comments_controller（ネストさせる）
+    # posts関連
+    resources :posts do
+      # comments関連（ネストさせる）
         resources :comments, only: [:new, :create, :edit, :update, :destroy]
       end
 
-    # groups_controller
-    resources :groups, only: [:new, :index, :show, :create, :edit, :update, :destroy]
+    # groups関連
+    resources :groups
     
   end
 
-  # 管理者側のrouting設定
+  # 管理者側のルーティング（routingやcontroller、viewのパスも変更）
   namespace :admin do
     get 'homes/top', to: "homes#top", as: ''
 
-    # users_controller
+    # users関連
     resources :users, only: [:index, :show, :edit, :update] do
-      # searches_controller(ネストさせる)
+      # searches関連(ネストさせる)
         resources :searches, only: [:index, :show, :destroy]
         get 'searches/destroy_all', to: "searches#destroy_all"
       end
     
-    # posts_controller
-    resources :posts, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+    # posts関連
+    resources :posts
 
-    # comments_controller
+    # comments関連
     resources :comments, only: [:index, :create, :edit, :update, :destroy]
 
-    # groups_controller
-    resources :groups, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
+    # groups関連
+    resources :groups do
       get 'groups/add_member',  to: "groups#add_member"
       get 'groups/remove_member',  to: "groups#remove_member"
     end
   end
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  
 end
