@@ -1,7 +1,7 @@
 # 共通controller
 class ApplicationController < ActionController::Base
-  # Devise使用時に、事前にストロングパラメータ（configure_permitted_parametersメソッド）を設定
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  # ログイン時以外は認証を適用（トップページとアバウトページを除く）
+  before_action :authenticate_user!, except: [:top, :about]
 
   # sign in後にマイページに転移
   def after_sign_in_path_for(resource)
@@ -13,11 +13,7 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  # 他のコントローラからも参照するために
+  # 他のコントローラでも使えるように protected を設定
   protected
 
-  # ユーザー登録時にnicknameカラム（データ操作）を許可する（デフォルトでは許可されないため）
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
-  end
 end
