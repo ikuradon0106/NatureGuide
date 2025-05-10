@@ -1,2 +1,40 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<h1>投稿編集画面</h1>
+
+<%= render 'public/posts/error_messages', post: @post %>
+
+<%= form_with model: @post do |f| %>
+  <div class="mb-3">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :body, "説明" %>
+    <%= f.text_area :body, class: "form-control", rows: 5 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :latitude, "緯度" %>
+    <%= f.text_field :latitude, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :longitude, "経度" %>
+    <%= f.text_field :longitude, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :location_name, "位置情報" %>
+    <%= f.text_field :location_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :image, "画像変更（任意）" %><br>
+    <%= image_tag @post.get_image, class: "img-thumbnail mb-2", width: "200" %><br>
+    <%= f.file_field :image %>
+  </div>
+
+  <%= f.submit "更新する", class: "btn btn-success" %>
+  <%= link_to "戻る", post_path(@post), class: "btn btn-secondary ms-2" %>
+<% end %>
+

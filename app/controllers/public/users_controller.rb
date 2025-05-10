@@ -3,6 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
 
   def mypage
+    @user = User.all
   end
 
   def edit

@@ -1,2 +1,27 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<h1>投稿一覧画面</h1>
+
+<% if @posts.present? %>
+  <% @posts.each do |post| %>
+    <div>
+      <%# 画像表示（画像がなければデフォルト表示） %>
+      <%= image_tag post.get_image, class: "rounded float-start w-50" %>
+    </div>
+
+    <div>
+      <h5><%= post.title %></h5>
+      <p><%= post.body %></p>
+      <p class="text-muted mb-1">
+        緯度: <%= post.latitude %>
+        経度: <%= post.longitude %>
+      </p>
+      <p>
+        位置情報： <%= post.location_name %>
+      </p>
+
+      <%# 詳細ページへのリンク%>
+      <p><%= link_to "詳細を見る", post_path(post), class: "btn btn-outline-primary btn-sm" %></p>
+    </div>
+  <% end %>
+<% else %>
+    <p>投稿はまだありません。<p>
+<% end %>

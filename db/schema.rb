@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2025_05_06_013127) do
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
-    t.string "image", null: false
+    t.string "image"
     t.text "body", null: false
     t.string "location_name", null: false
     t.decimal "latitude", precision: 9, scale: 6, null: false
