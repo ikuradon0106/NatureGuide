@@ -1,6 +1,10 @@
 <h1>画像投稿フォーム</h1>
+
+<%= render 'public/posts/error_messages', post: @post %>
+
 <%= form_with model: @post do |f| %>
 
+  <div>
   <%= f.label :title, "タイトル" %>
   <%= f.text_field :title, class: "form-control" %>
 
@@ -13,9 +17,14 @@
   <%= f.label :longitude, "経度" %>
   <%= f.text_field :longitude, class: "form-control" %>
 
-  <%= f.label :image, "写真" %>
-  <%= f.file_field :image, class: "form-control" %>
+  <%= f.label :location_name, "位置情報" %>
+  <%= f.text_field :location_name, class: "form-control" %>
+
+  <%= f.label :image, "写真" %><br>
+  <%= f.file_field :image %>
+  </div>
 
   <%= f.submit "投稿する", class: "btn btn-success mt-3" %>
 
 <% end %>
+

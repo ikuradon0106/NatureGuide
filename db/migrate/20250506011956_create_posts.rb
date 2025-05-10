@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
     create_table :posts do |t|
       t.integer :user_id,       null: false
       t.string :title,          null: false
-      t.string :image,          null: false
+      t.string :image           
       t.text :body,             null: false
       t.string :location_name,  null: false
       # 9:全体の桁数(precision)、6:小数点以下の桁数(scale)で桁数の指定
