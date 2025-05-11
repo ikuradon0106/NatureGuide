@@ -19,10 +19,11 @@ Rails.application.routes.draw do
     get 'about', to: "homes#about", as: 'about'
     
     # users関連
-    get 'users/mypage', to: "users#mypage", as: 'mypage'
-    resources :users, only: [:edit, :show, :update]
-    get 'users/unsubscribe', to: "users#unsubscribe"
-    get 'users/withdraw', to: "users#withdraw"
+    get 'users/mypage',             to: "users#mypage",      as: 'mypage'
+    get 'users/mypage/edit',        to: "users#edit"
+    patch 'users/mypage/update',    to: "users#update"
+    get 'users/unsubscribe',        to: "users#unsubscribe"
+    patch 'users/withdraw',         to: "users#withdraw"
 
     # posts関連
     resources :posts do
