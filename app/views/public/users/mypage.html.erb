@@ -1,20 +1,43 @@
-<!-- 投稿一覧 -->
-<div class="card mt-4">
-  <div class="card-body">
-    <h3>最近の投稿</h3>
+<h1><%= @user.nickname %>さんのマイページ</h1>
 
+<%# ユーザーの詳細 %>
 
-    <% if @user.posts.any? %>
-      <ul class="list-group">
-        <% @user.posts.order(created_at: :desc).limit(5).each do |post| %>
-          <li class="list-group-item">
-            <%= link_to post.title, post_path(post), class: "fw-bold text-decoration-none" %>
-            <small class="text-muted d-block">投稿日: <%= l(post.created_at, format: :short) %></small>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>まだ投稿がありません。</p>
-    <% end %>
-  </div>
+<div>
+  <h2><%= @user.nickname %>さんのプロフィール</h2>
+  <% if @user.user_image.attached? %>
+    <%= image_tag @user.user_image %>
+  <% else %>
+    <%= image_tag 'no_image.jpg' %>
+  <% end %>
+
+  <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+  <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
+  <%= link_to "プロフィール編集", users_mypage_edit_path, class: "btn btn-primary" %>
 </div>
+
+<%# ユーザーの投稿一覧 %>
+
+<h2><%= @user.nickname %>さんの投稿一覧</h2>
+  <% if @user_posts.any? %>
+    <% @user_posts.each do |user_post| %>
+      <div>
+        <%# 画像表示（画像がなければデフォルト表示） %>
+        <%= image_tag user_post.get_image, class: "rounded float-start w-50" %>
+      </div>
+
+      <div>
+        <h5><%= user_post.title %></h5>
+        <p><%= user_post.body %></p>
+        <p class="text-muted mb-1">
+          緯度: <%= user_post.latitude %>
+          経度: <%= user_post.longitude %>
+        </p>
+        <p>
+          位置情報： <%= user_post.location_name %>
+        </p>
+      </div>
+    <% end %>
+
+  <% else %>
+    <p>まだ投稿はありません。</p>
+  <% end %>

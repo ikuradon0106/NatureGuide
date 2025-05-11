@@ -1,0 +1,5 @@
+<h1>退会確認</h1>
+<p>本当に退会しますか？退会するとログインできなくなります。</p>
+
+<%= link_to "退会しない", mypage_path, class: "btn btn-primary mr-3", style: "width: 150px;" %>
+<%= link_to "退会する", users_withdraw_path, method: :patch, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger", style: "width: 150px;" %>
