@@ -16,4 +16,6 @@ class User < ApplicationRecord
   
   # バリテーション設定（空のカラムになっていないかどうか）
   validates :email, :nickname, presence: true
+
+  
 end

@@ -33,6 +33,10 @@ Rails.application.routes.draw do
 
     # groups関連
     resources :groups
+
+    # searches関連
+    resources :searches, only: [:new, :index, :show]
+    get "/search", to: "searches#search", as: :search_feature
     
   end
 
