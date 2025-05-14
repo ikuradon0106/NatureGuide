@@ -16,4 +16,10 @@ class User < ApplicationRecord
   
   # バリテーション設定（空のカラムになっていないかどうか）
   validates :email, :nickname, presence: true
+
+  # 検索ワードをもとに、Userモデルのnicknameカラムに部分一致するユーザーを取得する
+  # SQLのLIKE句を使用し、「nicknameに検索語が含まれているか」を判定する
+  def self.search_for(word)
+    where('nickname LIKE ?', "%#{word}%")
+  end
 end
