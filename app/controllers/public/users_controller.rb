@@ -9,6 +9,11 @@ class Public::UsersController < ApplicationController
     @user_posts = @user.posts
   end
 
+  # ユーザーの詳細画面の表示
+  def show
+  @user = User.find(params[:id])
+  end
+
   # マイプロフィール編集の表示
   def edit
     @user = current_user

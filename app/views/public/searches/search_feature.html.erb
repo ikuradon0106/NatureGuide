@@ -1,0 +1,99 @@
+<%# 検索対象がユーザーの場合の表示 %>
+<% if @model == 'user' %>
+  <h3>Users search for "<%= @word %>"</h3>
+  <% if @users.present? %>
+    <section>
+      <h4>Found Users:</h4>
+      <ul>
+        <% @users.each do |user| %>
+          <li><%= link_to user.nickname, user_path(user) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% else %>
+    <p>No users found for "<%= @word %>"</p>
+  <% end %>
+
+<%# 検索対象が投稿の場合の表示 %>
+<% elsif @model == 'post' %>
+  <h3>Posts search results for "<%= @word %>"</h3>
+  <% if @posts.present? %>
+    <section>
+      <h4>Found Posts:</h4>
+      <ul>
+        <% @posts.each do |post| %>
+          <li><%= link_to post.title, post_path(post) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% else %>
+    <p>No posts found for "<%= @word %>"</p>
+  <% end %>
+
+<%# 検索対象がグループの場合の表示 %>
+<% elsif @model == 'group' %>
+  <h3>Groups search results for "<%= @word %>"</h3>
+  <% if @groups.present? %>
+    <section>
+      <h4>Found Groups:</h4>
+      <ul>
+        <% @groups.each do |group| %>
+          <li><%= link_to group.group_name, group_path(group) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% else %>
+    <p>No groups found for "<%= @word %>"</p>
+  <% end %>
+
+<%# 検索対象が指定されていない場合（すべてのモデルを検索） %>
+<% elsif @model.blank? %>
+  <h3>Search results for "<%= @word %>"</h3>
+
+  <%# ユーザーの検索結果が存在する場合 %>
+  <% if @users.present? %>
+    <section>
+      <h4>Users</h4>
+      <ul>
+        <% @users.each do |user| %>
+          <li><%= link_to user.nickname, user_path(user) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% else %>
+    <p>No users found for "<%= @word %>"</p>
+  <% end %>
+
+  <%# 投稿の検索結果が存在する場合 %>
+  <% if @posts.present? %>
+    <section>
+      <h4>Posts</h4>
+      <ul>
+        <% @posts.each do |post| %>
+          <li><%= link_to post.title, post_path(post) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% else %>
+    <p>No posts found for "<%= @word %>"</p>
+  <% end %>
+
+  <%# グループの検索結果が存在する場合 %>
+  <% if @groups.present? %>
+    <section>
+      <h4>Groups</h4>
+      <ul>
+        <% @groups.each do |group| %>
+          <li><%= link_to group.group_name, group_path(group) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% else %>
+    <p>No groups found for "<%= @word %>"</p>
+  <% end %>
+<% end %>
+
+<hr>
+  <div class="mt-3">
+    <%= link_to "戻る", request.referer || root_path, class: 'btn btn-outline-primary' %>
+  </div>

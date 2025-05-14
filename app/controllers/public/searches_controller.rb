@@ -17,15 +17,15 @@ class Public::SearchesController < ApplicationController
 
     # blankメソッドを使用し、モデルが空の場合は、すべてのモデルを検索
     if @model.blank?
-      @records = User.search_for(@word)
-      @records = Post.search_for(@word)
-      @records = Group.search_for(@word)
+      @users = User.search_for(@word)
+      @posts = Post.search_for(@word)
+      @groups = Group.search_for(@word)
     elsif @model =="user"
-      @records = User.search_for(@word)
+      @users = User.search_for(@word)
     elsif @model =="post"
-      @records = Post.search_for(@word)
+      @posts = Post.search_for(@word)
     elsif @model =="group"
-      @records = Group.search_for(@word)
+      @groups = Group.search_for(@word)
     else
       # 無効な検索の場合の処理（一応）
       flash[:alert] = "無効な検索が行われました。"

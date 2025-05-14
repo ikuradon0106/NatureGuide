@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     patch 'users/mypage/update',    to: "users#update"
     get 'users/unsubscribe',        to: "users#unsubscribe"
     patch 'users/withdraw',         to: "users#withdraw"
+    resources :users, only: [:show]
 
     # posts関連
     resources :posts do
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
 
     # searches関連
     resources :searches, only: [:new, :index, :show]
-    get "/search", to: "searches#search", as: :search_feature
+    get '/search_feature', to: "searches#search_feature", as: 'search_feature'
     
   end
 

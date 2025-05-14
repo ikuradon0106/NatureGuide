@@ -1,0 +1,13 @@
+<%# ユーザーの詳細 %>
+
+<div>
+  <h2><%= @user.nickname %>さんのプロフィール</h2>
+  <% if @user.user_image.attached? %>
+    <%= image_tag @user.user_image %>
+  <% else %>
+    <%= image_tag 'no_image.jpg' %>
+  <% end %>
+
+  <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+  <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
+</div>

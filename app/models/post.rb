@@ -21,4 +21,10 @@ class Post < ApplicationRecord
        'no_image.jpg'
      end
   end
+
+  # 検索ワードをもとに、Postモデルのnameカラムに部分一致するユーザーを取得する
+  # SQLのLIKE句を使用し、「名前に検索語が含まれているか」を判定する
+  def self.search_for(word)
+    where('title LIKE ?', "%#{word}%")
+  end
 end
