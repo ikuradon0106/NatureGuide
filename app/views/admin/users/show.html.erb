@@ -1,2 +1,11 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1><%= @user.nickname %>さんの会員情報</h1>
+
+<p><strong>ID:</strong> <%= @user.id %></p>
+<p><strong>名前:</strong> <%= @user.nickname %></p>
+<p><strong>メールアドレス:</strong> <%= @user.email %></p>
+<p><strong>退会状態:</strong> <%= @user.is_active %></p>
+
+<%= link_to "編集", edit_admin_user_path(@user), class: "btn btn-primary btn-sm" %>
+
+
+
