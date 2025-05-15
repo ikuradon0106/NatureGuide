@@ -16,6 +16,7 @@ class Public::PostsController < ApplicationController
   # 投稿詳細の表示
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   # 投稿データの保存
@@ -39,6 +40,7 @@ class Public::PostsController < ApplicationController
   # 投稿の更新処理
   def update
     @post = Post.find(params[:id])
+    
     if @post.update(post_params)
       flash[:notice] = "編集に成功しました。"
       redirect_to post_path(@post)

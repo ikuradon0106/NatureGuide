@@ -28,8 +28,8 @@ Rails.application.routes.draw do
 
     # posts関連
     resources :posts do
-      # comments関連（ネストさせる）
-        resources :comments, only: [:new, :create, :edit, :update, :destroy]
+        # comments関連（ネストさせる）
+        resources :comments, only: [:new, :index, :create, :edit, :update, :destroy]
       end
 
     # groups関連
