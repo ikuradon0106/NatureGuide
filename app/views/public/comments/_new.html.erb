@@ -1,0 +1,6 @@
+<h2>コメント</h2>
+
+<%= form_with(model: [@post, @comment]) do |f| %>
+  <%= f.text_area :body, rows:'5', placeholder: "コメント入力", class: "w-100" %>
+  <%= f.submit "送信" %>
+<% end %>
