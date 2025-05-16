@@ -2,27 +2,27 @@
 
 <%= form_with model:@user, url: admin_user_path(@user), method: :patch do |f| %>
   <div>
-    <%= f.label :nickname, 'ニックネーム' %><br>
+    <%= f.label :nickname, "ニックネーム" %><br>
     <%= f.text_field :nickname %>
   </div>
 
   <div>
-    <%= f.label :email, 'メールアドレス' %><br>
+    <%= f.label :email, "メールアドレス" %><br>
     <%= f.email_field :email %>
   </div>
 
   <div>
-  <%= f.label :is_active, 'ステータス' %><br>
+  <%= f.label :is_active, "ステータス" %><br>
   <%= f.radio_button :is_active, true %>
-  <%= f.label :is_active_true, '有効' %>
+  <%= f.label :is_active_true, "有効" %>
 
   <%= f.radio_button :is_active, false %>
-  <%= f.label :is_active_false, '退会' %>
+  <%= f.label :is_active_false, "退会" %>
   </div>
 
   <div>
-    <%= f.submit '更新する' %>
+    <%= f.submit "更新する" %>
   </div>
 <% end %>
 
-<%= link_to '戻る', admin_user_path(@user) %>
+<%= link_to "戻る", admin_user_path(@user) %>
