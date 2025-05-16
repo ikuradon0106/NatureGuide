@@ -1,2 +1,28 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<h1><%= @user.nickname %> さんの情報を編集</h1>
+
+<%= form_with model:@user, url: admin_user_path(@user), method: :patch do |f| %>
+  <div>
+    <%= f.label :nickname, "ニックネーム" %><br>
+    <%= f.text_field :nickname %>
+  </div>
+
+  <div>
+    <%= f.label :email, "メールアドレス" %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+  <%= f.label :is_active, "ステータス" %><br>
+  <%= f.radio_button :is_active, true %>
+  <%= f.label :is_active_true, "有効" %>
+
+  <%= f.radio_button :is_active, false %>
+  <%= f.label :is_active_false, "退会" %>
+  </div>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<%= link_to "戻る", admin_user_path(@user) %>

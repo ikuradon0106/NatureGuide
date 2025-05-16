@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # 管理者側
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+  devise_for :admins, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
 
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
   # 管理者側のルーティング（routingやcontroller、viewのパスも変更）
   namespace :admin do
-    get 'homes/top', to: "homes#top", as: ''
+    get 'homes/top', to: "homes#top", as: 'admin'
 
     # users関連
     resources :users, only: [:index, :show, :edit, :update] do
