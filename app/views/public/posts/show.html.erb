@@ -14,6 +14,9 @@
     </p>
     <%# 日時のフォーマットをja.ymlで管理→後で直す %>
     <p>投稿日： <%= @post.created_at.strftime('%Y/%m/%d') %></p>
+    <p>
+      コメント数： <%= @post.comments.count %>
+    </p>
   </div>
 
   <% if @post.user == current_user %>
@@ -22,4 +25,6 @@
       <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-primary btn-sm" %>
     </div>
   <% end %>
+
+  <%= render 'public/comments/new' %>
 </div>

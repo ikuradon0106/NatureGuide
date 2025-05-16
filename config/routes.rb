@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # 管理者側
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+  devise_for :admins, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
 
@@ -24,21 +24,26 @@ Rails.application.routes.draw do
     patch 'users/mypage/update',    to: "users#update"
     get 'users/unsubscribe',        to: "users#unsubscribe"
     patch 'users/withdraw',         to: "users#withdraw"
+    resources :users, only: [:show]
 
     # posts関連
     resources :posts do
-      # comments関連（ネストさせる）
-        resources :comments, only: [:new, :create, :edit, :update, :destroy]
+        # comments関連（ネストさせる）
+        resources :comments, only: [:new, :index, :create, :edit, :update, :destroy]
       end
 
     # groups関連
     resources :groups
+
+    # searches関連
+    resources :searches, only: [:new, :index, :show]
+    get '/search_feature', to: "searches#search_feature", as: 'search_feature'
     
   end
 
   # 管理者側のルーティング（routingやcontroller、viewのパスも変更）
   namespace :admin do
-    get 'homes/top', to: "homes#top", as: ''
+    get 'homes/top', to: "homes#top", as: 'admin'
 
     # users関連
     resources :users, only: [:index, :show, :edit, :update] do

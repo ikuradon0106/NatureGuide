@@ -9,6 +9,11 @@ class Public::UsersController < ApplicationController
     @user_posts = @user.posts
   end
 
+  # ユーザーの詳細画面の表示
+  def show
+  @user = User.find(params[:id])
+  end
+
   # マイプロフィール編集の表示
   def edit
     @user = current_user
@@ -19,7 +24,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.update(user_params)
       flash[:notice] = "編集に成功しました。"
-      redirect_to edit_user_path(@user)
+      redirect_to users_mypage_edit_path(@user)
     else
       flash.now[:alert] = "編集に失敗しました。"
       render :edit
