@@ -9,17 +9,38 @@
       <th>作成日時</th>
       <th>コメント内容</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
+
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= comment.id %></td>
-        <td><%= comment.user.nickname %></td>
-        <td><%= link_to commnet.post.title, admin_post_path(post) %></td>
-        <td><%= commnet.created_at %></td>
-        <td><%= link_to "詳細", admin_user_path(user), class: "btn btn-primary btn-sm" %></td>
+        <td>
+          <%= comment.id %>
+        </td>
+        <td>
+          <%= comment.user.nickname %>
+        </td>
+        <td>
+          <%= link_to comment.post.title, admin_post_path(comment.post) %>
+        </td>
+        <td>
+          <%# JST表示 config/initializers/time_formatsにフォーマット記述 %>
+          <%= comment.created_at.to_s(:datetime_jp) %>
+        </td>
+        <td>
+          <%= comment.body %>
+        </td>
+        <td>
+          <%= link_to "編集", edit_admin_comment_path(comment), class: "btn btn-primary btn-sm" %>
+        </td>
+        <td>
+          <%= link_to "削除", admin_comment_path(comment), method: :delete, "data-confirm" => "本当に削除しますか？",  class: "btn btn-danger btn-sm" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= render 'form' %>
