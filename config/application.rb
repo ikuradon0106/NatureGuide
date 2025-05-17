@@ -16,7 +16,10 @@ module PF
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+
+    # タイムゾーンを日本（東京）に変更
+    config.time_zone = "Tokyo"
+
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
