@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'group_requests/create'
-    get 'group_requests/update'
-    get 'group_requests/destroy'
-  end
   # ユーザー側
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
   devise_for :users, skip: [:passwords], controllers: {

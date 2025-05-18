@@ -15,7 +15,7 @@ class Public::GroupsController < ApplicationController
   # グループ詳細表示画面
   def show
     @group = Group.find(params[:id])
-    
+    @group_request = GroupRequest.new(user: current_user, group: @group, status: "requested")
   end
 
   # グループ新規作成処理

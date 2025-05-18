@@ -8,5 +8,10 @@
 
 <%# 上記のいずれかでもない場合は、参加申請ボタンを表示 %>
 <% else %>
-  <%= button_to "参加申請を送る", group_group_requests_path(@group), method: :post, class: "btn btn-success mt-3"  %>
+<%= form_with url: group_group_requests_path(@group), method: :post do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit "参加申請", class: "btn btn-primary" %>
+<% end %>
+
+
 <% end %>
