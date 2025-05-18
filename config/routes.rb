@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'group_requests/create'
+    get 'group_requests/update'
+    get 'group_requests/destroy'
+  end
   # ユーザー側
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
   devise_for :users, skip: [:passwords], controllers: {
@@ -33,7 +38,10 @@ Rails.application.routes.draw do
       end
 
     # groups関連
-    resources :groups
+    resources :groups do
+      # group_requests関連(ネストさせる)
+      resources :group_requests, only: [:create, :update, :destroy]
+    end
 
     # searches関連
     resources :searches, only: [:new, :index, :show]

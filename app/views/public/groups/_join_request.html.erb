@@ -1,0 +1,12 @@
+<%# 現在のユーザーがこのグループ(=@group)に参加済みかを判定 %>
+<% if @group.users.include?(current_user) %>
+  <p>すでにこのグループに参加しています。</p>
+
+<%# 指定のユーザーが指定のグループに参加申請中（pending または requested）かどうか判定するクラスメソッドを使用（GroupRequestモデルに記載） %>
+<% elsif GroupRequest.requesting?(current_user, @group) %>
+  <p>参加申請中です。承認をお待ちください。</p>
+
+<%# 上記のいずれかでもない場合は、参加申請ボタンを表示 %>
+<% else %>
+  <%= button_to "参加申請を送る", group_group_requests_path(@group), method: :post, class: "btn btn-success mt-3"  %>
+<% end %>

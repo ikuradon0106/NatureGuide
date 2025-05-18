@@ -1,2 +1,31 @@
-<h1>Public::Groups#show</h1>
-<p>Find me in app/views/public/groups/show.html.erb</p>
+<h1><%= @group.group_name %></h1>
+
+<div class="card mb-3">
+  <%= @group.group_image %>
+
+  <div class="card-body">
+    <h5 class="card-title">紹介文</h5>
+    <p class="card-text"><%= @group.description %></p>
+
+    <p><strong>作成日時:</strong> <%= @group.created_at.to_s(:datetime_jp) %></p>
+
+    <p><strong>メンバー数:</strong> <%= @group.users.count %>人</p>
+
+    <h5 class="mt-4">メンバー一覧</h5>
+    <ul>
+      <% @group.users.each do |user| %>
+        <li><%= user.nickname %></li>
+      <% end %>
+    </ul>
+
+    <%= render 'join_request', group: @group %>
+    
+  </div>
+</div>
+
+<% if @group.owner_id == current_user.id %>
+  <%= link_to "編集", edit_group_path(@group), class: "btn btn-secondary" %>
+<% end %>
+
+<%= link_to "グループ一覧に戻る", groups_path, class: "btn btn-secondary" %>
+

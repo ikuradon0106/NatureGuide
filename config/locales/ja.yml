@@ -1,0 +1,8 @@
+ja:
+    enums:
+      group_request:
+        status:
+          pending: "申請前"
+          requested: "申請中"
+          approved: "許可済み"
+          rejected: "拒否"

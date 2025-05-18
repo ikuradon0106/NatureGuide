@@ -1,2 +1,28 @@
-<h1>Public::Groups#edit</h1>
-<p>Find me in app/views/public/groups/edit.html.erb</p>
+<h1>グループの編集</h1>
+
+<%= form_with model: @group, url: group_path(@group), method: :patch do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :group_image, "グループ画像" %>
+    <%= f.file_field :group_image %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :group_name, "グループ名" %>
+    <%= f.text_field :group_name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, "紹介文" %>
+    <%= f.text_area :description, class: "form-control", rows: 5 %>
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit "更新する", class: "btn btn-primary" %>
+    <%= link_to "戻る", group_path(@group), class: "btn btn-secondary ms-2" %>
+  </div>
+<% end %>
+
+<% if @group.owner_id == current_user.id %>
+  <%= link_to "グループを削除する", group_path(@group), method: :delete, method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-primary btn-sm" %>
+<% end %>
