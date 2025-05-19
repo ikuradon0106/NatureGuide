@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2025_05_18_003428) do
     t.integer "owner_id", null: false
     t.string "group_name", null: false
     t.text "description", null: false
-    t.string "group_image", null: false
+    t.string "group_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

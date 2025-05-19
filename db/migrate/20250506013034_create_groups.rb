@@ -5,7 +5,7 @@ class CreateGroups < ActiveRecord::Migration[6.1]
       t.integer :owner_id,   null: false
       t.string :group_name,  null: false
       t.text :description,   null: false
-      t.string :group_image, null: false
+      t.string :group_image
 
       t.timestamps
     end

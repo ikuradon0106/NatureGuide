@@ -1,7 +1,11 @@
 <h1><%= @group.group_name %></h1>
 
 <div class="card mb-3">
-  <%= @group.group_image %>
+  <% if @group.group_image.attached? %>
+    <%= image_tag @group.group_image %>
+  <% else %>
+    <%= image_tag 'no_image.jpg' %>
+  <% end %>
 
   <div class="card-body">
     <h5 class="card-title">紹介文</h5>
@@ -18,7 +22,7 @@
       <% end %>
     </ul>
 
-    <%= render 'join_request', group: @group %>
+    <%= render 'request', group: @group %>
     
   </div>
 </div>

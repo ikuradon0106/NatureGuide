@@ -23,6 +23,8 @@ class Public::GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
     if @group.save
+      # オーナーをメンバーに追加する処理(演算子<< は「配列やコレクションに要素を追加する操作」)
+      @group.users << current_user
       flash[:notice] = "グループを作成しました。"
       redirect_to groups_path(@group)
     else
