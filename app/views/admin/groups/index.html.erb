@@ -1,2 +1,26 @@
-<h1>Admin::Groups#index</h1>
-<p>Find me in app/views/admin/groups/index.html.erb</p>
+<h1>グループ一覧（管理者）</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>作成者</th>
+      <th>作成日</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.id %></td>
+        <td><%= link_to group.group_name, admin_group_path(group) %></td>
+        <td><%= User.find_by(id: group.owner_id)&.nickname %></td>
+        <td><%= group.created_at.to_s(:datetime_jp) %></td>
+        <td>
+          <%= button_to "削除", admin_group_path(group), method: :delete, "data-confirm" => "本当に削除しますか？",  class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
