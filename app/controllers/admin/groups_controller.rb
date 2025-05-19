@@ -5,6 +5,7 @@ class Admin::GroupsController < ApplicationController
   def new
   end
 
+  # グループ一覧の表示
   def index
     @groups = Group.all
   end
@@ -21,6 +22,7 @@ class Admin::GroupsController < ApplicationController
   def update
   end
 
+    # グループ削除処理
   def destroy
     @group = Group.find(params[:id])
 
