@@ -6,6 +6,7 @@ class Admin::GroupsController < ApplicationController
   end
 
   def index
+    @groups = Group.all
   end
 
   def show
@@ -21,6 +22,14 @@ class Admin::GroupsController < ApplicationController
   end
 
   def destroy
+    @group = Group.find(params[:id])
+
+    if @group.destroy
+      flash[:notice] = "削除に成功しました。"
+    else
+      flash[:alert] = "削除に失敗しました。"
+    end
+    redirect_to admin_groups_path
   end
 
   def add_member
