@@ -1,2 +1,23 @@
-<h1>Public::Groups#new</h1>
-<p>Find me in app/views/public/groups/new.html.erb</p>
+<h1>新しいグループを作成</h1>
+
+<%= form_with model: @group, url: groups_path, method: :post do |f| %>
+  <div>
+    <%= f.label :group_image, "グループアイコン" %>
+    <%= f.file_field :group_image %>
+  </div>
+
+  <div>
+    <%= f.label :group_name, "グループ名" %>
+    <%= f.text_field :group_name, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :description, "紹介文" %>
+    <%= f.text_area :description, class: "form-control", rows: 5 %>
+  </div>
+
+  <div>
+    <%= f.submit "グループを作成", class: "btn btn-success" %>
+    <%= link_to "戻る", groups_path, class: "btn btn-secondary ms-2" %>
+  </div>
+<% end %>

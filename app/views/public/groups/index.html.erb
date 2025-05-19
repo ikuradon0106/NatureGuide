@@ -1,2 +1,38 @@
-<h1>Public::Groups#index</h1>
-<p>Find me in app/views/public/groups/index.html.erb</p>
+<h1>現在募集しているグループ一覧</h1>
+
+<% if @groups.any? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>オーナーID</th>
+        <th>作成者</th>
+        <th>グループアイコン</th>
+        <th>グループ名</th>
+        <th>作成日時</th>
+        <th>紹介文</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.owner_id %></td>
+          <td><%# user.nickname %></td>
+          <td><%= group.group_image %></td>
+          <td><%= group.group_name %></td>
+          <td>
+            <%# JST表示 config/initializers/time_formatsにフォーマット記述 %>
+            <%= group.created_at.to_s(:datetime_jp) %>
+          </td>
+          <td><%= group.description %></td>
+          <td><%= link_to "詳細", group_path(group), class: "btn btn-info btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>現在、募集しているグループはありません。</p>
+<% end %>
+
+<%= link_to "新しいグループを作成", new_group_path, class: "btn btn-primary mb-3" %>

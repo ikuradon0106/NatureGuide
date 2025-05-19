@@ -12,7 +12,12 @@ class User < ApplicationRecord
   has_many :searches,     dependent: :destroy        # 検索履歴
 
   # アソシエーション定義（N:Nを中間テーブルを経由）
-  has_many :group,        through: :group_users      # groupとuserの中間テーブル
+  has_many :group_users,   dependent: :destroy       # 中間テーブルで結ばれている
+  has_many :groups,        through: :group_users     # groupとuserの中間テーブル
+
+    # アソシエーション定義（N:Nを中間テーブルを経由）
+    has_many :group_requests,   dependent: :destroy       # 中間テーブルで結ばれている
+    has_many :groups,        through: :group_requests     # groupとuserの中間テーブル
   
   # バリテーション設定（空のカラムになっていないかどうか）
   validates :email, :nickname, presence: true

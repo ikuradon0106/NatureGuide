@@ -33,7 +33,10 @@ Rails.application.routes.draw do
       end
 
     # groups関連
-    resources :groups
+    resources :groups do
+      # group_requests関連(ネストさせる)
+      resources :group_requests, only: [:create, :update, :destroy]
+    end
 
     # searches関連
     resources :searches, only: [:new, :index, :show]
