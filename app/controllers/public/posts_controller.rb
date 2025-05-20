@@ -17,6 +17,13 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @post.as_json(only: [:id, :title, :body, :latitude, :longitude, :address])
+      end
+    end
   end
 
   # 投稿データの保存
@@ -61,7 +68,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :latitude, :longitude, :location_name, :image)
+    params.require(:post).permit(:title, :body, :image, :address, :latitude, :longitude)
   end
 
   # 投稿者でない場合、アクセスを制限するメソッド

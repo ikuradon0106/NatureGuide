@@ -6,19 +6,17 @@
 
   <div>
   <%= f.label :title, "タイトル" %>
-  <%= f.text_field :title, class: "form-control" %>
+  <%= f.text_field :title, class: "form-control", placeholder: "タイトル" %>
 
   <%= f.label :body, "説明" %>
-  <%= f.text_area :body, class: "form-control" %>
+  <%= f.text_area :body, class: "form-control", placeholder: "説明文" %>
 
-  <%= f.label :latitude, "緯度" %>
-  <%= f.text_field :latitude, class: "form-control" %>
+  <%# 郵便番号は今回は保存する対象ではないため、text_field_tagを使用して単純なinputタグを生成 %>
+  <%= f.label :zipcode, "郵便番号" %>
+  <%= text_field_tag :zipcode, nil, class: "form-control", placeholder: "郵便番号" %>
 
-  <%= f.label :longitude, "経度" %>
-  <%= f.text_field :longitude, class: "form-control" %>
-
-  <%= f.label :location_name, "位置情報" %>
-  <%= f.text_field :location_name, class: "form-control" %>
+  <%= f.label :address, "住所" %>
+  <%= f.text_field :address, class: "form-control", placeholder: "住所" %>
 
   <%= f.label :image, "写真" %><br>
   <%= f.file_field :image %>
@@ -27,4 +25,7 @@
   <%= f.submit "投稿する", class: "btn btn-success mt-3" %>
 
 <% end %>
+
+<%# Javascriptを読み込む処理 %>
+<%= javascript_pack_tag "jpostal",  'data-turbolinks-track': 'reload' %>
 
