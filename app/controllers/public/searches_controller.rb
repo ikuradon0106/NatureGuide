@@ -5,7 +5,38 @@ class Public::SearchesController < ApplicationController
   def new
   end
 
+    # APIの結果を@responseに代入し、ビューで表示
   def index
+    if params[:keyword].present?
+      @response = Gbif::Species.name_usage(name: params[:keyword])
+      Rails.logger.info "API result first item: #{@response['results'].first.inspect}"
+  
+      @image_urls = {}
+  
+      # 種の情報が取得できていれば、画像も取得
+      if @response['results'].present?
+        # 最初の5件だけ処理する(あとで非同期化or画像データのキャッシュを行う)
+        @response['results'].first(5).each do |species|
+          taxon_key = species['key']
+          next unless taxon_key
+  
+          # 画像API呼び出し
+          image_response = Faraday.get("https://api.gbif.org/v1/occurrence/search", {
+            taxonKey: taxon_key,
+            mediaType: "StillImage",
+            limit: 1
+          })
+  
+          # 画像URLをインスタンス変数に格納（ビューで使用可能に）
+          image_data = JSON.parse(image_response.body)
+          image_url = image_data["results"].dig(0, "media", 0, "identifier")
+          @image_urls[taxon_key] = image_url if image_url.present?
+        end
+      end
+    else
+      @response = nil
+      @image_urls = {}
+    end
   end
 
   def show

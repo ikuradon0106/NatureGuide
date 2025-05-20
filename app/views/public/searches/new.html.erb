@@ -1,0 +1,6 @@
+<h2>植物名検索</h2>
+<%= form_with url: searches_path, method: :get do %>
+  <%= label_tag :keyword, "植物名キーワード" %>
+  <%= text_field_tag :keyword, params[:keyword] %>
+  <%= submit_tag "検索" %>
+<% end %>
