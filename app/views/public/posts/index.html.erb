@@ -1,21 +1,34 @@
-<h1>投稿一覧画面</h1>
+<h1 class="mb-4">投稿一覧画面</h1>
 
 <% if @posts.present? %>
-  <% @posts.each do |post| %>
-    <div>
-      <%# 画像表示（画像がなければデフォルト表示） %>
-      <%= image_tag post.get_image, class: "rounded float-start w-50" %>
-    </div>
+  <div class="timeline">
+    <% @posts.each do |post| %>
+      <div class="timeline-item d-flex mb-4">
+        <!-- 左側：日時・アイコン -->
+        <div class="timeline-time text-center me-3" style="width: 120px; min-width: 120px;">
+          <small class="text-muted d-block mb-2"><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></small>
+          <div class="timeline-icon bg-success rounded-circle mx-auto" style="width: 30px; height: 30px;"></div>
+        </div>
 
-    <div>
-      <h5><%= post.title %></h5>
-      <p><%= post.body %></p>
-      <p>住所：<%= post.address %></p>
-
-      <%# 詳細ページへのリンク%>
-      <p><%= link_to "詳細を見る", post_path(post), class: "btn btn-outline-primary btn-sm" %></p>
-    </div>
-  <% end %>
+        <!-- 右側：投稿内容 -->
+        <div class="timeline-content flex-grow-1">
+          <div class="card">
+            <% if post.get_image.attached? %>
+              <%= image_tag post.get_image.variant(resize_to_limit: [600, 300]), class: "card-img-top", alt: post.title %>
+            <% else %>
+              <%= image_tag "default_image.png", class: "card-img-top", alt: "デフォルト画像" %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= truncate(post.body, length: 150) %></p>
+              <p class="card-text"><small class="text-muted">住所：<%= post.address %></small></p>
+              <%= link_to "詳細を見る", post_path(post), class: "btn btn-outline-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% else %>
-    <p>投稿はまだありません。<p>
+  <p>投稿はまだありません。</p>
 <% end %>

@@ -24,7 +24,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.update(user_params)
       flash[:notice] = "編集に成功しました。"
-      redirect_to users_mypage_edit_path(@user)
+      redirect_to mypage_path(@user)
     else
       flash.now[:alert] = "編集に失敗しました。"
       render :edit
