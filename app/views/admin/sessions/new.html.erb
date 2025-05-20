@@ -1,26 +1,33 @@
-<h2>管理者用ログイン</h2>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
+    <h2 class="mb-4 text-center">管理者用ログイン</h2>
 
-<%= form_with model: @admin, url: admin_session_path, method: :post do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <%= form_with model: @admin, url: admin_session_path, method: :post, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :email, "メールアドレス", class: "form-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <div class="mb-3">
+        <%= f.label :password, "パスワード", class: "form-label" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <% if devise_mapping.rememberable? %>
+        <div class="form-check mb-3">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, class: "form-check-label" %>
+        </div>
+      <% end %>
+
+      <div class="d-grid mb-3">
+        <%= f.submit "ログイン", class: "btn btn-success" %>
+      </div>
+    <% end %>
+
+    <div class="text-start mt-3">
+      <%= render "admin/shared/links" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</div>
 
-<%= render "admin/shared/links" %>
