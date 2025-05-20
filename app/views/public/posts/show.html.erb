@@ -6,12 +6,12 @@
     <h5><%= @post.title %></h5>
     <p><%= @post.body %></p>
     <p class="text-muted mb-1">
-      緯度: <%= @post.latitude %>
-      経度: <%= @post.longitude %>
+      住所：<%= @post.address %>
     </p>
-    <p>
-      位置情報： <%= @post.location_name %>
-    </p>
+
+    <p>緯度：<%= @post.latitude %></p>
+    <p>経度：<%= @post.longitude %></p>
+  
     <%# 日時のフォーマットをja.ymlで管理→後で直す %>
     <p>投稿日： <%= @post.created_at.strftime('%Y/%m/%d') %></p>
     <p>
@@ -28,3 +28,20 @@
 
   <%= render 'public/comments/new' %>
 </div>
+
+<hr>
+
+<h3>Google Map 表示</h3>
+<div id="map" style="height: 400px; width: 100%;"></div>
+
+<script>
+  window.POST_ID = <%= @post.id %>;
+  window.LATITUDE = <%= @post.latitude || 35.681236 %>;
+  window.LONGITUDE = <%= @post.longitude || 139.767125 %>;
+  window.TITLE = "<%= j @post.title %>";
+</script>
+
+<%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
+
+
+

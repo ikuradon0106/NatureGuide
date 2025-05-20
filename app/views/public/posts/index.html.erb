@@ -10,13 +10,7 @@
     <div>
       <h5><%= post.title %></h5>
       <p><%= post.body %></p>
-      <p class="text-muted mb-1">
-        緯度: <%= post.latitude %>
-        経度: <%= post.longitude %>
-      </p>
-      <p>
-        位置情報： <%= post.location_name %>
-      </p>
+      <p>住所：<%= post.address %></p>
 
       <%# 詳細ページへのリンク%>
       <p><%= link_to "詳細を見る", post_path(post), class: "btn btn-outline-primary btn-sm" %></p>
