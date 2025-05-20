@@ -1,0 +1,33 @@
+<% if @response && @response["results"].present? %>
+  <h2>検索結果</h2>
+
+  <% @response["results"].each do |result| %>
+    <div class="search-result">
+      <p><strong>学名:</strong> <%= result["scientificName"] %></p>
+      <p><strong>和名/英名:</strong> <%= result["vernacularName"].presence || "情報なし" %></p>
+      <p><strong>分類:</strong>
+        <%= result["kingdom"] %> /
+        <%= result["phylum"] %> /
+        <%= result["class"] %> /
+        <%= result["order"] %> /
+        <%= result["family"] %> /
+        <%= result["genus"] %>
+      </p>
+      <p><strong>命名者:</strong> <%= result["authorship"] %></p>
+      <p><strong>初出文献:</strong> <%= result["publishedIn"] %></p>
+
+      <% image_url = @image_urls[result["key"]] %>
+      <% if image_url.present? %>
+        <div class="search-image">
+          <%= image_tag image_url, alt: "生物の画像", width: 300 %>
+        </div>
+      <% else %>
+        <p>画像は見つかりませんでした。</p>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>検索結果は見つかりませんでした。</p>
+<% end %>
+

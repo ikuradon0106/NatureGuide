@@ -68,3 +68,13 @@ gem "net-imap"
 
 gem "enum_help"
 gem 'geocoder'
+
+# GBIFの Ruby 向けの非公式 API クライアント
+gem 'gbifrb'
+
+# HTTP通信を助けるツール（ライブラリ）→これを導入しないとgbifrbが動かない
+# GBIFという生き物の情報をまとめているサービスからデータをもらうとき、Faradayが橋渡し役となる
+gem 'faraday'
+
+# JSONのパース・生成を抽象化するライブラリ
+gem 'multi_json'
