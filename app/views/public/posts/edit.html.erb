@@ -1,6 +1,13 @@
-<h1>投稿編集画面</h1>
+<div class="container">
+  <div class="row justify-content-center"><!-- 中央寄せ -->
+    <div class="col-md-6">
 
-<%= render 'public/posts/error_messages', post: @post %>
+<h1 class="mb-4">投稿編集画面</h1>
+
+<%= render 'public/posts/form_post', post:@post %>
+
+
+
 
 <%= form_with model: @post do |f| %>
   <div class="mb-3">

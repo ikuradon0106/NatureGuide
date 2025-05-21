@@ -1,24 +1,16 @@
-<div class="container">
-  <div class="row justify-content-center"><!-- 中央寄せ -->
-    <div class="col-md-6">
-
-<h1 class="mb-4">画像投稿フォーム</h1>
-
 <%= render 'public/posts/error_messages', post: @post %>
-
 
 <%= form_with model: @post, html: { multipart: true } do |f| %>
 
-  時間があれば文字カウント付ける
   <div class="mb-3">
-  <%= f.label :title, "タイトル（必須 100文字以内）", class: "form-label" %>
+  <%= f.label :title, "タイトル", class: "form-label" %>
   <%= f.text_field :title, class: "form-control", placeholder: "タイトルを入力してください", required: true, maxlength: 100 %>
   <div class="invalid-feedback">
       タイトルは必須です（100文字以内）。
   </div>
 
-  <div class="my-3">
-  <%= f.label :body, "説明（必須 1000文字以内）", class: "form-label" %>
+  <div class="mb-3">
+  <%= f.label :body, "説明", class: "form-label" %>
   <%= f.text_area :body, class: "form-control", placeholder: "説明文を入力してください", rows: 4, required: true, maxlength: 1000 %>
   <div class="invalid-feedback">
     説明は必須です（1000文字以内）。
@@ -38,6 +30,7 @@
 
   <div class="mb-3">
   <%= f.label :image, "写真アップロード", class: "form-label" %><br>
+  <%= image_tag @post.get_image, class: "img-thumbnail mb-2", width: "200" %><br>
   <%= f.file_field :image %>
   </div>
 
@@ -46,11 +39,3 @@
   </div>
 
 <% end %>
-
-</div>
-  </div>
-</div>
-
-<%# Javascriptを読み込む処理 %>
-<%= javascript_pack_tag "jpostal",  'data-turbolinks-track': 'reload' %>
-

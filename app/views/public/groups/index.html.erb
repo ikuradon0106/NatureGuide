@@ -1,7 +1,9 @@
-<h1>現在募集しているグループ一覧</h1>
+<div class="container mt-4">
+<h1 class="mb-4">現在募集しているグループ一覧</h1>
 
 <% if @groups.any? %>
-  <table class="table table-striped">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
     <thead>
       <tr>
         <th>オーナーID</th>
@@ -18,21 +20,30 @@
       <% @groups.each do |group| %>
         <tr>
           <td><%= group.owner_id %></td>
-          <td><%# user.nickname %></td>
-          <td><%= group.group_image %></td>
+          <td><%# user.nickname %></td><%# →ここ直す %>
+          <td>
+            <% if group.group_image.attached? %>
+              <%= image_tag group.group_image.variant(resize_to_limit: [600, 400]), class: "img-fluid rounded", style: "width: 100px; height: auto;" %>
+            <% else %>
+              <span class="text-muted">なし</span>
+            <% end %>
+          </td>
           <td><%= group.group_name %></td>
           <td>
             <%# JST表示 config/initializers/time_formatsにフォーマット記述 %>
             <%= group.created_at.to_s(:datetime_jp) %>
           </td>
-          <td><%= group.description %></td>
-          <td><%= link_to "詳細", group_path(group), class: "btn btn-info btn-sm" %></td>
+          <td><%=  truncate(group.description, length: 50) %></td>
+          <td><%= link_to "詳細", group_path(group), class: "btn btn-outline-primary btn-sm" %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <p>現在、募集しているグループはありません。</p>
+    <div class="alert alert-info">
+      現在、募集しているグループはありません。
+    </div>
 <% end %>
 
-<%= link_to "新しいグループを作成", new_group_path, class: "btn btn-primary mb-3" %>
+<%= link_to "新しいグループを作成", new_group_path, class: "btn btn-success mt-3" %>
+</div>

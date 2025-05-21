@@ -1,34 +1,63 @@
-<h1 class="mb-4">投稿一覧画面</h1>
+<div class="container mt-5">
+  <div class="row">
+
+    <!-- 左：自分のプロフィール -->
+    <div class="col-md-4">
+      <%= render 'public/users/profile', user: @user %>
+    </div>
+
+
+    <!-- 右：投稿一覧 -->
+    <div class="col-md-8">
+      <h1 class="mb-4">投稿一覧画面</h1>
 
 <% if @posts.present? %>
   <div class="timeline">
     <% @posts.each do |post| %>
-      <div class="timeline-item d-flex mb-4">
+      <div class="timeline-item d-flex mb-5">
+
         <!-- 左側：日時・アイコン -->
-        <div class="timeline-time text-center me-3" style="width: 120px; min-width: 120px;">
-          <small class="text-muted d-block mb-2"><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></small>
-          <div class="timeline-icon bg-success rounded-circle mx-auto" style="width: 30px; height: 30px;"></div>
+        <div class="timeline-time text-center me-4" style="width: 120px; min-width: 120px;">
+          <% if post.user.user_image.attached? %>
+            <%= image_tag post.user.user_image.variant(resize_to_limit: [50, 50]), alt: "プロフィール画像" %>
+          <% else %>
+            <%= image_tag'no_image.jpg', width: 50, height: 50, alt: "プロフィール画像なし" %>
+          <% end %>
+          <small class="text-muted d-block"><%= post.created_at.strftime('%Y/%m/%d') %></small>
         </div>
 
         <!-- 右側：投稿内容 -->
-        <div class="timeline-content flex-grow-1">
-          <div class="card">
+        <div class="flex-grow-1">
+    <div class="card shadow-sm p-3">
+      <div class="d-flex align-items-start">
+
+          <!-- 投稿画像 -->
+          <div class="me-4" style="width: 300px;">
             <% if post.get_image.attached? %>
-              <%= image_tag post.get_image.variant(resize_to_limit: [600, 300]), class: "card-img-top", alt: post.title %>
+              <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "img-fluid rounded", alt: post.title, style: "width: 300px; height: auto;" %>
             <% else %>
-              <%= image_tag "default_image.png", class: "card-img-top", alt: "デフォルト画像" %>
+              <%= image_tag "default_image.png", class: "img-fluid rounded", alt: "デフォルト画像" %>
             <% end %>
-            <div class="card-body">
+          </div>
+
+          <!-- テキスト内容 -->
+            <div class="flex-grow-1 mt-1">
               <h5 class="card-title"><%= post.title %></h5>
               <p class="card-text"><%= truncate(post.body, length: 150) %></p>
               <p class="card-text"><small class="text-muted">住所：<%= post.address %></small></p>
               <%= link_to "詳細を見る", post_path(post), class: "btn btn-outline-primary btn-sm" %>
             </div>
-          </div>
+
+          </div> 
+        </div> 
         </div>
+
       </div>
     <% end %>
   </div>
 <% else %>
-  <p>投稿はまだありません。</p>
+  <p class= "text-muted mt-4">投稿はまだありません。</p>
 <% end %>
+
+</div>
+</div>

@@ -22,8 +22,6 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -78,3 +76,9 @@ gem 'faraday'
 
 # JSONのパース・生成を抽象化するライブラリ
 gem 'multi_json'
+
+# Active Storage の variant（画像のリサイズやトリミングなどの処理）機能を使うための中核ライブラリ。
+gem 'image_processing'
+# 実際の画像処理（リサイズやフォーマット変換など）を担当するライブラリ。
+# image_processing から呼び出されて動作する。ImageMagick を内部で使用。
+gem 'mini_magick', '~> 4.8'
