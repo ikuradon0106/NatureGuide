@@ -1,36 +1,47 @@
-<h1 class="mb-4"><%= @group.group_name %></h1>
+<div class="container">
+  <h1 class="mb-4">
+    グループ：<%= @group.group_name %>
+  </h1>
 
-<div class="card mb-4">
-  <% if @group.group_image.attached? %>
-    <%= image_tag @group.group_image.variant(resize_to_limit: [800, 200]), alt: @group.group_name, style: "max-width: 400px; height: auto;" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', class: "card-img-top", alt: "No Image", style: "max-width: 400px; height: auto;" %>
-  <% end %>
+  <div class="row">
 
-  <div class="card-body">
-    <h5 class="card-title">紹介文</h5>
-    <p class="card-text"><%= simple_format(@group.description) %></p>
-
-    <p><strong>作成日時:</strong> <%= @group.created_at.to_s(:datetime_jp) %></p>
-
-    <p><strong>メンバー数:</strong> <%= @group.users.count %>人</p>
-
-    <h5 class="mt-4">メンバー一覧</h5>
-    <ul>
-      <% @group.users.each do |user| %>
-        <li><%= user.nickname %></li>
-      <% end %>
-    </ul>
-
-    <%= render 'request', group: @group %>
-    
+  <!-- グループ画像 -->
+  <div class="col-md-6 mb-3">
+    <% if @group.group_image.attached? %>
+      <%= image_tag @group.group_image.variant(resize_to_limit: [800, 200]), alt: @group.group_name, style: "max-width: 600px; height: auto;" %>
+    <% else %>
+      <%= image_tag 'no_image.jpg', class: "card-img-top", alt: "No Image", style: "max-width: 400px; height: auto;" %>
+    <% end %>
   </div>
-</div>
 
-<div class="d-flex gap-2 mb-4">
-<% if @group.owner_id == current_user.id %>
-  <%= link_to "編集", edit_group_path(@group), class: "btn btn-primary" %>
-<% end %>
+  <!-- グループ情報 -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">紹介文</h5>
+          <p class="card-text"><%= simple_format(@group.description) %></p>
 
-<%= link_to "グループ一覧に戻る", groups_path, class: "btn btn-secondary" %>
+          <p class="text-muted"><strong>作成日時:</strong> <%= @group.created_at.to_s(:datetime_jp) %></p>
+          <p><strong>メンバー数:</strong> <%= @group.users.count %>人</p>
+
+          <h5 class="mt-4">メンバー一覧</h5>
+          <ul>
+            <% @group.users.each do |user| %>
+              <li><%= user.nickname %></li>
+            <% end %>
+          </ul>
+
+          <%= render 'request', group: @group %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- アクションボタン -->
+  <div class="d-flex gap-2 mt-4">
+    <% if @group.owner_id == current_user.id %>
+      <%= link_to "編集", edit_group_path(@group), class: "btn btn-outline-primary" %>
+    <% end %>
+    <%= link_to "グループ一覧に戻る", groups_path, class: "btn btn-outline-secondary" %>
+  </div>
 </div>

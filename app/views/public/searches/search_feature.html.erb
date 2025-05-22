@@ -1,104 +1,117 @@
 <div class="container mt-5">
 
-<%# 検索対象がユーザーの場合の表示 %>
-<% if @model == 'user' %>
-  <section class="mb-5">
-      <h3>ユーザー</h3>
-  <h3>Users search for "<%= @word %>"</h3>
-  <% if @users.present? %>
-    <section>
-      <h4>Found Users:</h4>
-      <ul>
-        <% @users.each do |user| %>
-          <li><%= link_to user.nickname, user_path(user) %></li>
-        <% end %>
-      </ul>
-    </section>
-  <% else %>
-    <p>No users found for "<%= @word %>"</p>
-  <% end %>
+  <h3 class="mb-4">検索キーワード: "<%= @word %>"</h3>
 
-<%# 検索対象が投稿の場合の表示 %>
-<% elsif @model == 'post' %>
-  <h3>Posts search results for "<%= @word %>"</h3>
-  <% if @posts.present? %>
-    <section>
-      <h4>Found Posts:</h4>
-      <ul>
-        <% @posts.each do |post| %>
-          <li><%= link_to post.title, post_path(post) %></li>
-        <% end %>
-      </ul>
-    </section>
-  <% else %>
-    <p>No posts found for "<%= @word %>"</p>
-  <% end %>
+    <!-- 検索対象がユーザーの場合の表示 -->
+      <% if @model == 'user' %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title">ユーザー検索結果</h4>
+          <% if @users.present? %>
+            <ul class="list-group list-group-flush">
+              <% @users.each do |user| %>
+                <li class="list-group-item"><%= link_to user.nickname, user_path(user) %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted mt-2">該当するユーザーは見つかりませんでした。</p>
+          <% end %>
+        </div>
+      </div>
 
-<%# 検索対象がグループの場合の表示 %>
-<% elsif @model == 'group' %>
-  <h3>Groups search results for "<%= @word %>"</h3>
-  <% if @groups.present? %>
-    <section>
-      <h4>Found Groups:</h4>
-      <ul>
-        <% @groups.each do |group| %>
-          <li><%= link_to group.group_name, group_path(group) %></li>
-        <% end %>
-      </ul>
-    </section>
-  <% else %>
-    <p>No groups found for "<%= @word %>"</p>
-  <% end %>
 
-<%# 検索対象が指定されていない場合（すべてのモデルを検索） %>
+    <!-- 検索対象が投稿の場合の表示 -->
+    <% elsif @model == 'post' %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4 class="card-title">投稿検索結果</h4>
+        <% if @posts.present? %>
+          <ul class="list-group list-group-flush">
+            <% @posts.each do |post| %>
+              <li class="list-group-item"><%= link_to post.title, post_path(post) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-muted mt-2">該当する投稿は見つかりませんでした。</p>
+        <% end %>
+      </div>
+    </div>
+  
+
+  <!-- 検索対象がグループの場合の表示 -->
+    <% elsif @model == 'group' %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title">グループ検索結果</h4>
+          <% if @groups.present? %>
+            <ul class="list-group list-group-flush">
+              <% @groups.each do |group| %>
+                <li class="list-group-item"><%= link_to group.group_name, group_path(group) %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted mt-2">該当するグループは見つかりませんでした。</p>
+          <% end %>
+        </div>
+      </div>
+
+
+<!-- 検索対象が指定されていない場合（すべてのモデルを検索） -->
 <% elsif @model.blank? %>
-  <h3>Search results for "<%= @word %>"</h3>
 
   <%# ユーザーの検索結果が存在する場合 %>
-  <% if @users.present? %>
-    <section>
-      <h4>Users</h4>
-      <ul>
-        <% @users.each do |user| %>
-          <li><%= link_to user.nickname, user_path(user) %></li>
+  <div class="card mb-4">
+      <div class="card-body">
+        <h4 class="card-title">ユーザー検索結果</h4>
+        <% if @users.present? %>
+          <ul class="list-group list-group-flush">
+            <% @users.each do |user| %>
+              <li class="list-group-item"><%= link_to user.nickname, user_path(user) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-muted mt-2">該当するユーザーは見つかりませんでした。</p>
         <% end %>
-      </ul>
-    </section>
-  <% else %>
-    <p>No users found for "<%= @word %>"</p>
-  <% end %>
+      </div>
+    </div>
+
 
   <%# 投稿の検索結果が存在する場合 %>
-  <% if @posts.present? %>
-    <section>
-      <h4>Posts</h4>
-      <ul>
-        <% @posts.each do |post| %>
-          <li><%= link_to post.title, post_path(post) %></li>
+      <div class="card mb-4">
+      <div class="card-body">
+        <h4 class="card-title">投稿検索結果</h4>
+        <% if @posts.present? %>
+          <ul class="list-group list-group-flush">
+            <% @posts.each do |post| %>
+              <li class="list-group-item"><%= link_to post.title, post_path(post) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-muted mt-2">該当する投稿は見つかりませんでした。</p>
         <% end %>
-      </ul>
-    </section>
-  <% else %>
-    <p>No posts found for "<%= @word %>"</p>
-  <% end %>
+      </div>
+    </div>
 
   <%# グループの検索結果が存在する場合 %>
-  <% if @groups.present? %>
-    <section>
-      <h4>Groups</h4>
-      <ul>
-        <% @groups.each do |group| %>
-          <li><%= link_to group.group_name, group_path(group) %></li>
+  <div class="card mb-4">
+      <div class="card-body">
+        <h4 class="card-title">グループ検索結果</h4>
+        <% if @groups.present? %>
+          <ul class="list-group list-group-flush">
+            <% @groups.each do |group| %>
+              <li class="list-group-item"><%= link_to group.group_name, group_path(group) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-muted mt-2">該当するグループは見つかりませんでした。</p>
         <% end %>
-      </ul>
-    </section>
-  <% else %>
-    <p>No groups found for "<%= @word %>"</p>
+      </div>
+    </div>
   <% end %>
-<% end %>
 
-<hr>
-  <div class="d-flex justify-content-start">
+
+  <div class="mt-4">
     <%= link_to "戻る", request.referer || root_path, class: 'btn btn-outline-primary' %>
   </div>
+
 </div>

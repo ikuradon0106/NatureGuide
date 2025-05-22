@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     # searches関連
     resources :searches, only: [:new, :index, :show]
     get '/search_feature', to: "searches#search_feature", as: 'search_feature'
+    get 'searches/fetch_image', to: 'public/searches#fetch_image'
     
   end
 

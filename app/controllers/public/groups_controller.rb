@@ -9,7 +9,7 @@ class Public::GroupsController < ApplicationController
 
   # グループ一覧表示画面
   def index
-    @groups = Group.all
+    @groups = Group.page(params[:page])
   end
 
   # グループ詳細表示画面

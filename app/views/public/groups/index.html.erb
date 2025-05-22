@@ -45,5 +45,9 @@
     </div>
 <% end %>
 
+<div class="d-flex justify-content-center mt-4">
+<%= paginate @groups %>
+</div>
+
 <%= link_to "新しいグループを作成", new_group_path, class: "btn btn-success mt-3" %>
 </div>

@@ -1,40 +1,53 @@
-<!-- 現在のユーザーがこのグループ(=@group)に参加済みかを判定 -->
-<% if @group.users.include?(current_user) %>
-  <p>すでにこのグループに参加しています。</p>
+<div class="card mb-4">
+  <div class="card-body">
 
-<%# 指定のユーザーが指定のグループに参加申請中（pending または requested）かどうか判定するクラスメソッドを使用（GroupRequestモデルに記載） %>
-<% elsif GroupRequest.requesting?(current_user, @group) %>
-  <p>参加申請中です。承認をお待ちください。</p>
+    <!-- 現在のユーザーがこのグループ(=@group)に参加済みかを判定 -->
+    <% if @group.users.include?(current_user) %>
+      <p class="text-success">すでにこのグループに参加しています。</p>
 
-  <%= button_to "申請をキャンセル", group_group_request_path(@group, current_user_pending_request), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <%# 指定のユーザーが指定のグループに参加申請中（pending または requested）かどうか判定するクラスメソッドを使用（GroupRequestモデルに記載） %>
+    <% elsif GroupRequest.requesting?(current_user, @group) %>
+      <div class="alert alert-warning">
+          参加申請中です。承認をお待ちください。
+        </p>
 
-<%# 上記のいずれかでもない場合は、参加申請ボタンを表示 %>
-<% else %>
-  <%# Turboによる非同期送信を無効化、通常のフォーム送信に(GETエラーになるため) %>
-  <%= form_with url: group_group_requests_path(@group), method: :post, data: { turbo: false } do |f| %>
-    <%= f.submit "参加申請" %>
-  <% end %>
-<% end %>
+    <%= button_to "申請をキャンセル", group_group_request_path(@group, current_user_pending_request), method: :delete, "data-confirm" => "本当に削除しますか？", 
+                  class: "btn btn-outline-danger" %>
+
+    <%# 上記のいずれかでもない場合は、参加申請ボタンを表示 %>
+    <% else %>
+      <%# Turboによる非同期送信を無効化、通常のフォーム送信に(GETエラーになるため) %>
+      <%= form_with url: group_group_requests_path(@group), method: :post, data: { turbo: false } do |f| %>
+        <%= f.submit "参加申請", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
 
 <!-- 承認・拒否ボタン -->
 <% if current_user.id == @group.owner_id %>
-  <h3>申請中のユーザー一覧</h3>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">申請中のユーザー一覧</h5>
 
-  <%# where(status: "pending") を使用することで、dbからステータスがpendingだけを抽出するが、user_idがオーナーIDと異なる申請だけを取得する %>
-  <% pending_requests = @group.group_requests.where(status: "pending").where.not(user_id: @group.owner_id) %>
+      <%# where(status: "pending") を使用することで、dbからステータスがpendingだけを抽出するが、user_idがオーナーIDと異なる申請だけを取得する %>
+      <% pending_requests = @group.group_requests.where(status: "pending").where.not(user_id: @group.owner_id) %>
 
-  <% if pending_requests.any? %>
-
-    <% pending_requests.each do |group_request| %>
-    <!-- 申請中のユーザー一覧表示 -->
-
-
-          <p><%= group_request.user.nickname %>さんが申請中です。</p>
-            <%= button_to "承認", group_group_request_path(@group, group_request, decision: "approve"), method: :patch %>
-            <%= button_to "拒否", group_group_request_path(@group, group_request, decision: "reject"), method: :patch %>
-      
-    <% end %>
-  <% else %>
-      <p>申請中のユーザーはいません。</p>
-  <% end %>
+      <% if pending_requests.any? %>
+        <!-- 申請中のユーザー一覧表示 -->
+        <% pending_requests.each do |group_request| %>
+          <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+            <span><%= group_request.user.nickname %>さんが申請中です。</span>
+            <div>
+              <%= button_to "承認", group_group_request_path(@group, group_request, decision: "approve"), method: :patch, class: "btn btn-success btn-sm me-2" %>
+              <%= button_to "拒否", group_group_request_path(@group, group_request, decision: "reject"), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-muted">申請中のユーザーはいません。</p>
+      <% end %>
+    </div>
+  </div>
 <% end %>

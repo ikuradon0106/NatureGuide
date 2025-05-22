@@ -4,7 +4,11 @@
 
   <!-- 画像 -->
     <div class="col-md-6 mb-3">
-      <%= image_tag @post.get_image, class: "rounded w-100"  %>
+    <% if @post.get_image.present? %>
+    <%= image_tag @post.get_image, class: "rounded w-100" %>
+      <% else %>
+    <%= image_tag 'no_image.jpg', class: "rounded w-100", alt: "画像なし" %>
+      <% end %>
     </div>
 
     

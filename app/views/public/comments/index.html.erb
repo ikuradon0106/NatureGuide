@@ -7,3 +7,8 @@
     <%= link_to "削除", post_comment_path(@post, comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-primary btn-sm" %>
   <% end %>
 <% end %>
+
+<div class="d-flex justify-content-center mt-4">
+<%= paginate @post.comments %>
+</div>
+

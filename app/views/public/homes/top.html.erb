@@ -39,11 +39,11 @@
       <% @posts.each do |post| %>
         <div class="col-md-4 mb-4">
           <div class="card shadow-sm border-0 rounded-4">
-            <% if post.image.attached? %>
-              <%= image_tag post.image, class: "card-img-top rounded-top-4" %>
-            <% else %>
-              <div class="bg-success bg-opacity-10" style="height: 180px; border-top-left-radius: 1rem; border-top-right-radius: 1rem;"></div>
-            <% end %>
+          <% if post.get_image.present? %>
+            <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "card-img-top rounded-top-4" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', class: "card-img-top rounded-top-4", style: "height: 180px; object-fit: cover;" %>
+          <% end %>
             <div class="card-body">
               <h5 class="card-title"><%= post.title %></h5>
               <p class="card-text text-muted"><%= truncate(post.body, length: 80) %></p>

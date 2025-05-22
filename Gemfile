@@ -82,3 +82,6 @@ gem 'image_processing'
 # 実際の画像処理（リサイズやフォーマット変換など）を担当するライブラリ。
 # image_processing から呼び出されて動作する。ImageMagick を内部で使用。
 gem 'mini_magick', '~> 4.8'
+
+# ページネーションに必要な機能を効率的に提供するGem
+gem 'kaminari','~> 1.2.1'

@@ -6,7 +6,7 @@ class Public::UsersController < ApplicationController
   # マイページの表示
   def mypage
     @user = current_user
-    @user_posts = @user.posts
+    @user_posts = @user.posts.page(params[:page])
   end
 
   # ユーザーの詳細画面の表示

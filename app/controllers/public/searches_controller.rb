@@ -9,38 +9,56 @@ class Public::SearchesController < ApplicationController
   def index
     if params[:keyword].present?
       @response = Gbif::Species.name_usage(name: params[:keyword])
-      Rails.logger.info "API result first item: #{@response['results'].first.inspect}"
   
-      @image_urls = {}
-  
-      # 種の情報が取得できていれば、画像も取得
-      if @response['results'].present?
-        # 最初の5件だけ処理する(あとで非同期化or画像データのキャッシュを行う)
-        @response['results'].first(5).each do |species|
-          taxon_key = species['key']
-          next unless taxon_key
-  
-          # 画像API呼び出し
-          image_response = Faraday.get("https://api.gbif.org/v1/occurrence/search", {
-            taxonKey: taxon_key,
-            mediaType: "StillImage",
-            limit: 1
-          })
-  
-          # 画像URLをインスタンス変数に格納（ビューで使用可能に）
-          image_data = JSON.parse(image_response.body)
-          image_url = image_data["results"].dig(0, "media", 0, "identifier")
-          @image_urls[taxon_key] = image_url if image_url.present?
-        end
-      end
+      # ページ番号と1ページあたり件数
+      page = params[:page] || 1
+      per_page = 5
+
+      # 配列にページネーションを適用
+      paginated_results = Kaminari.paginate_array(@response['results']).page(page).per(per_page)
+
+      @results = paginated_results
+
+      # 各種の taxonKey に対応する画像URLを取得
+    @image_urls = {}
+    @results.each do |species|
+      key = species["key"]
+      next unless key.present?
+      @image_urls[key] = fetch_image_url(key)
+    end
     else
       @response = nil
+      @results = []
       @image_urls = {}
     end
-  end
 
-  def show
+    respond_to do |format|
+      format.html
+      format.js 
+    end
+end
+
+  # Rails.cache でキャッシュ（サーバー側に一時保存）
+  # 概要：一度取得した画像URLを一定時間サーバーに保持し、再リクエスト時にAPIを叩かない。
+  def fetch_image_url(taxon_key)
+    Rails.cache.fetch("gbif_image_#{taxon_key}", expires_in: 12.hours) do
+      response = Faraday.get("https://api.gbif.org/v1/occurrence/search", {
+        taxonKey: taxon_key,
+        mediaType: "StillImage",
+        limit: 1
+      })
+  
+      image_data = JSON.parse(response.body)
+      image_data["results"].dig(0, "media", 0, "identifier")
   end
+end
+
+def fetch_image
+  taxon_key = params[:taxon_key]
+  image_url = fetch_image_url(taxon_key)
+
+  render json: { image_url: image_url }
+end
 
   def search_feature
     @word = params[:word]
