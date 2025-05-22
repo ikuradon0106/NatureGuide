@@ -1,6 +1,11 @@
-<h2>コメント</h2>
+<h2 class="mt-5 mb-4">コメント</h2>
 
+<div class="mb-4">
 <%= form_with(model: [@post, @comment]) do |f| %>
-  <%= f.text_area :body, rows:'5', placeholder: "コメント入力", class: "w-100" %>
-  <%= f.submit "送信" %>
+  <div class="mb-3">
+  <%= f.text_area :body, rows:'5',class: "form-control", placeholder: "コメントを入力してください" %>
+   </div>
+  <%= f.submit "送信", class: "btn btn-primary" %>
 <% end %>
+
+</div>

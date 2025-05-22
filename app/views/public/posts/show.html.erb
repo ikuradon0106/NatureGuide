@@ -1,38 +1,48 @@
-<h1>投稿詳細画面</h1>
+<div class="container">
+<h1 class="mb-4">投稿詳細画面</h1>
+<div class="row">
 
-<div>
-  <%= image_tag @post.get_image, class: "rounded float-start w-50"  %>
-  <div>
-    <h5><%= @post.title %></h5>
-    <p><%= @post.body %></p>
-    <p class="text-muted mb-1">
-      住所：<%= @post.address %>
-    </p>
+  <!-- 画像 -->
+    <div class="col-md-6 mb-3">
+    <% if @post.get_image.present? %>
+    <%= image_tag @post.get_image, class: "rounded w-100" %>
+      <% else %>
+    <%= image_tag 'no_image.jpg', class: "rounded w-100", alt: "画像なし" %>
+      <% end %>
+    </div>
 
-    <p>緯度：<%= @post.latitude %></p>
-    <p>経度：<%= @post.longitude %></p>
+    
+    <!-- 投稿情報エリア -->
+    <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+    <h3 class="card-title"><%= @post.title %></h3>
+    <p class="card-text"><%= simple_format(@post.body) %></p>
+
+    
+    <p class="text-muted mb-1"><strong>住所：</strong><%= @post.address.presence || '未登録' %></p>
+
   
     <%# 日時のフォーマットをja.ymlで管理→後で直す %>
-    <p>投稿日： <%= @post.created_at.strftime('%Y/%m/%d') %></p>
-    <p>
-      コメント数： <%= @post.comments.count %>
-    </p>
-  </div>
+    <p class="text-muted"><small>投稿日： <%= @post.created_at.strftime('%Y/%m/%d') %></small></p>
+    <p><strong>コメント数：</strong> <%= @post.comments.count %></p>
 
   <% if @post.user == current_user %>
-    <div>
+    <div class="mt-3">
       <%= link_to "編集", edit_post_path(@post), class: "btn btn-outline-secondary btn-sm me-2" %>
-      <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-primary btn-sm" %>
+      <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger btn-sm" %>
     </div>
   <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
 
-  <%= render 'public/comments/new' %>
+  <!-- Google Map 表示 -->
+<h3 class="mb-3">Google Map 表示</h3>
+<div id="map" style="height: 400px; width: 100%; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1);">
 </div>
 
-<hr>
-
-<h3>Google Map 表示</h3>
-<div id="map" style="height: 400px; width: 100%;"></div>
 
 <script>
   window.POST_ID = <%= @post.id %>;
@@ -42,6 +52,17 @@
 </script>
 
 <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
+
+<hr class="my-5">
+
+<!-- コメントフォーム -->
+  <div class="mt-5">
+  <%= render 'public/comments/new' %>
+</div>
+
+
+
+
 
 
 

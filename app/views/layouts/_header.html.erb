@@ -35,6 +35,7 @@
           <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %></li>
         <% elsif user_signed_in? %>
           <li class="nav-item"><%= link_to "投稿フォーム", new_post_path, class: "nav-link text-dark", data: {turbolinks: "false"} %></li>
+          <li class="nav-item"><%= link_to "投稿一覧", posts_path, class: "nav-link text-dark" %></li>
           <li class="nav-item"><%= link_to "グループ一覧", groups_path, class: "nav-link text-dark" %></li>
           <li class="nav-item"><%= link_to "学名検索", new_search_path, class: "nav-link text-dark" %></li>
           <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %></li>

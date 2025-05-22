@@ -5,7 +5,7 @@ class Public::CommentsController < ApplicationController
   # コメント一覧画面
   def index
     @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comments = @post.comments.page(params[:page])
   end
 
   # コメント投稿処理

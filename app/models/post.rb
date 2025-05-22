@@ -23,11 +23,11 @@ class Post < ApplicationRecord
 
   # 画像がなければ、保存画像を表示
   def get_image
-   if image.attached?
-       image
-     else
-       'no_image.jpg'
-     end
+    if image.attached?
+      image
+    else
+      nil
+    end
   end
 
   # 検索ワードをもとに、Postモデルのnameカラムに部分一致するユーザーを取得する

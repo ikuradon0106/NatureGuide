@@ -10,7 +10,8 @@ class Public::PostsController < ApplicationController
 
   # 投稿一覧の表示
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page])
+    @user = current_user
   end
 
   # 投稿詳細の表示

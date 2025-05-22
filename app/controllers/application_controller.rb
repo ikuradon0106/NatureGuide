@@ -1,5 +1,7 @@
 # 共通controller
 class ApplicationController < ActionController::Base
+  # すべてのアクションの前に最後に記述したメソッドを呼び出す
+  before_action :set_api_key
 
   # ログイン後に各マイページに転移(会員側と管理者側で変化)
   def after_sign_in_path_for(resource)
@@ -25,5 +27,9 @@ class ApplicationController < ActionController::Base
 
   # 他のコントローラでも使えるように protected を設定
   protected
+
+  def set_api_key
+    @maps_api_key = ENV['Maps_API_Key']
+  end
 
 end
