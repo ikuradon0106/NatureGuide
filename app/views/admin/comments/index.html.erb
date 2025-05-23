@@ -1,46 +1,41 @@
-<h1>コメント一覧</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">コメント一覧</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>投稿者</th>
-      <th>対象投稿</th>
-      <th>作成日時</th>
-      <th>コメント内容</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <% if @comments.present? %>
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>投稿タイトル</th>
+          <th>コメント内容</th>
+          <th>投稿者</th>
+          <th>コメント日時</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= link_to truncate(comment.post.title, length: 30), admin_post_path(comment.post), class: "text-decoration-none" %>
+            </td>
+            <td><%= simple_format(truncate(comment.body, length: 60)) %></td>
+            <td><%= comment.user.nickname.presence || "未登録ユーザー" %></td>
+            <td><%= comment.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+            <td>
+              <%= link_to "編集", edit_admin_comment_path(comment), class: "btn btn-primary btn-sm" %>
+              <%= link_to "削除", admin_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td>
-          <%= comment.id %>
-        </td>
-        <td>
-          <%= comment.user.nickname %>
-        </td>
-        <td>
-          <%= link_to comment.post.title, admin_post_path(comment.post) %>
-        </td>
-        <td>
-          <%# JST表示 config/initializers/time_formatsにフォーマット記述 %>
-          <%= comment.created_at.to_s(:datetime_jp) %>
-        </td>
-        <td>
-          <%= comment.body %>
-        </td>
-        <td>
-          <%= link_to "編集", edit_admin_comment_path(comment), class: "btn btn-primary btn-sm" %>
-        </td>
-        <td>
-          <%= link_to "削除", admin_comment_path(comment), method: :delete, "data-confirm" => "本当に削除しますか？",  class: "btn btn-danger btn-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @comments %>
+    </div>
+  <% else %>
+    <p class="text-muted mt-4">コメントはまだ投稿されていません。</p>
+  <% end %>
+</div>
 
 <%= render 'form' %>

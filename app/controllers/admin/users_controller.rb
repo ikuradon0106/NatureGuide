@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
 
   # 全ユーザー一覧画面の表示
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   # 各ユーザー詳細画面の表示
