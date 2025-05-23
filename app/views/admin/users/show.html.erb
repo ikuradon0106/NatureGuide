@@ -1,11 +1,41 @@
-<h1><%= @user.nickname %>さんの会員情報</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">会員詳細</h1>
 
-<p><strong>ID:</strong> <%= @user.id %></p>
-<p><strong>名前:</strong> <%= @user.nickname %></p>
-<p><strong>メールアドレス:</strong> <%= @user.email %></p>
-<p><strong>退会状態:</strong> <%= @user.is_active %></p>
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">基本情報</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <% if @user.user_image.attached? %>
+            <%= image_tag @user.user_image.variant(resize_to_limit: [150, 150]), class: "img-thumbnail" %>
+          <% else %>
+            <%= image_tag "no_image.jpg", class: "img-thumbnail", size: "150x150" %>
+          <% end %>
+        </div>
+        <div class="col-md-9">
+          <p><strong>ユーザーID:</strong> <%= @user.id %></p>
+          <p><strong>ニックネーム:</strong> <%= @user.nickname %></p>
+          <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+          <p><strong>登録日:</strong> <%= @user.created_at.strftime("%Y-%m-%d") %></p>
+          <p><strong>最終更新日:</strong> <%= @user.updated_at.strftime("%Y-%m-%d") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<%= link_to "編集", edit_admin_user_path(@user), class: "btn btn-primary btn-sm" %>
+  <div class="card mb-4">
+    <div class="card-header bg-secondary text-white">活動情報</div>
+    <div class="card-body">
+      <p><strong>自己紹介:</strong><br><%= @user.introduction.presence || "（未記入）" %></p>
+      <p><strong>投稿数:</strong> <%= @user.posts.count %></p>
+      <p><strong>コメント数:</strong> <%= @user.comments.count %></p>
+      <%# いいね数やグループ参加数も追加可能 %>
+    </div>
+  </div>
 
-
-
+  <div class="d-flex justify-content-between mt-3">
+  <div>
+    <%= link_to "一覧に戻る", admin_users_path, class: "btn btn-secondary me-2" %>
+    <%= link_to "編集", edit_admin_user_path(@user), class: "btn btn-warning" %>
+  </div>
+</div>

@@ -1,2 +1,26 @@
-<h1>Admin::Comments#edit</h1>
-<p>Find me in app/views/admin/comments/edit.html.erb</p>
+<div class="container mt-5">
+  <h2 class="mb-4">コメント編集</h2>
+
+  <%= form_with model: @comment, url: admin_comment_path(@comment), method: :patch, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :user_id, "投稿者（ユーザー）", class: "form-label" %>
+      <%= f.collection_select :user_id, User.all, :id, :nickname, { include_blank: "ユーザーを選択" }, class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :post_id, "対象投稿（タイトル）", class: "form-label" %>
+      <%= f.collection_select :post_id, Post.all, :id, :title, { include_blank: "投稿を選択" }, class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :body, "コメント内容", class: "form-label" %>
+      <%= f.text_area :body, rows: 4, class: "form-control" %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.submit "更新", class: "btn btn-primary" %>
+      <%= link_to "削除", admin_comment_path(@comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger me-2" %>
+      <%= link_to "戻る", admin_comments_path, class: "btn btn-secondary ms-2" %>
+    </div>
+  <% end %>
+</div>

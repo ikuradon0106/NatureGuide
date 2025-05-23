@@ -1,25 +1,32 @@
-<h2>新規コメント追加</h2>
+<div class="container mt-5">
+  <h2 class="mb-4">新規コメント追加</h2>
 
-<%= form_with model: @comment, url: admin_comments_path, method: :post do |f| %>
-  <div>
-    <%= f.label :user_id, "投稿者（ユーザー）" %>
-    <%# プルダウンの選択肢をDB内のあるテーブルの特定のカラムの内容 f.collection_selectタグ :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名 %>
-    <%= f.collection_select :user_id, User.all, :id, :nickname, include_blank: "ユーザーを選択", class: "form-control" %>
-  </div>
+  <%= form_with model: @comment, url: admin_comments_path, method: :post do |f| %>
+    <div class="mb-3">
+      <%= f.label :user_id, "投稿者（ユーザー）", class: "form-label" %>
+      <%# プルダウンの選択肢をDB内のあるテーブルの特定のカラムの内容 f.collection_selectタグ :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名 %>
+      <%= f.collection_select :user_id, User.all, :id, :nickname, { include_blank: "ユーザーを選択" }, class: "form-select" %>
+    </div>
 
-  <div>
-    <%= f.label :post_id, "対象投稿（タイトル）" %>
-    <%# プルダウンの選択肢をDB内のあるテーブルの特定のカラムの内容 f.collection_selectタグ :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名 %>
-    <%= f.collection_select :post_id, Post.all, :id, :title, include_blank: "投稿を選択", class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :post_id, "対象投稿（タイトル）", class: "form-label" %>
+      <%# プルダウンの選択肢をDB内のあるテーブルの特定のカラムの内容 f.collection_selectタグ :保存先のカラム名, テーブル（モデル）名.all, :実際にDBに保存させるカラム名, :選択肢に用いるカラム名 %>
+      <%= f.collection_select :post_id, Post.all, :id, :title, { include_blank: "投稿を選択" }, class: "form-select" %>
+    </div>
 
-  <div>
-    <%= f.label :body, "コメント内容" %>
-    <%= f.text_area :body, rows: 4, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :body, "コメント内容", class: "form-label" %>
+      <%= f.text_area :body, rows: 4, class: "form-control" %>
+    </div>
 
-  <%= f.submit "追加", class: "btn btn-success" %>
-<% end %>
+    <div class="mt-4">
+      <%= f.submit "追加", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
+
+
+
 
 あとで実装 
 ② 投稿一覧を横に表示する（中級レベルの改善） プルダウンで投稿を選ぶと、右横にその投稿の詳細が表示されるようにする（JavaScriptを使用）。
