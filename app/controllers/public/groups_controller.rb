@@ -41,7 +41,7 @@ class Public::GroupsController < ApplicationController
   # グループ更新処理
   def update
     @group = Group.find(params[:id])
-    
+
     if @group.update(group_params)
       flash[:notice] = "編集に成功しました。"
       redirect_to group_path(@group)
@@ -60,8 +60,7 @@ class Public::GroupsController < ApplicationController
 
   # ストロングパラメータ
   private
-
-  def group_params
-    params.require(:group).permit(:group_image, :group_name, :description)
-  end
+    def group_params
+      params.require(:group).permit(:group_image, :group_name, :description)
+    end
 end

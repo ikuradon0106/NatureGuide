@@ -1,4 +1,4 @@
-#adminテーブル
+# adminテーブル
 
 # frozen_string_literal: true
 

@@ -13,7 +13,7 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
-    
+
     if @comment.save
       flash[:notice] = "投稿に成功しました。"
       redirect_to post_comments_path(@post)
@@ -24,7 +24,7 @@ class Public::CommentsController < ApplicationController
       else
         flash.now[:alert] = "投稿に失敗しました。"
       end
-      render 'public/posts/show'
+      render "public/posts/show"
     end
   end
 
@@ -47,7 +47,7 @@ class Public::CommentsController < ApplicationController
       # コメント更新処理
       if @comment.update(comment_params)
         flash[:notice] = "編集に成功しました。"
-        redirect_to  post_comments_path(@post)
+        redirect_to post_comments_path(@post)
       else
         flash.now[:alert] = "編集に失敗しました。空欄にはできません。"
         render :edit
@@ -60,20 +60,19 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
 
-    if @comment.user == current_user 
+    if @comment.user == current_user
       @comment.destroy
       flash[:notice] = "削除に成功しました。"
     else
       flash[:alert] = "自分のコメント以外は削除できません。"
     end
 
-    redirect_to  post_comments_path(@post)
+    redirect_to post_comments_path(@post)
   end
 
   # コメントのストロングパラメータ
   private
-
-  def comment_params
-    params.require(:comment).permit(:body)
-  end
+    def comment_params
+      params.require(:comment).permit(:body)
+    end
 end

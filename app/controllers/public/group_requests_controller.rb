@@ -12,7 +12,7 @@ class Public::GroupRequestsController < ApplicationController
       group: @group,
       user: current_user
     )
-  
+
     if @group_request.save
       flash[:notice] = "グループへの参加申請を送信しました"
     else
@@ -20,7 +20,7 @@ class Public::GroupRequestsController < ApplicationController
     end
     redirect_to group_path(@group)
   end
-  
+
   # グループ申請の承認・拒否処理
   def update
     @group_request = GroupRequest.find(params[:id])
@@ -56,5 +56,4 @@ class Public::GroupRequestsController < ApplicationController
     end
     redirect_to group_path(@group)
   end
-
 end

@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
   # 該当ユーザーとしてログインしている場合のみアクセス許可
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy] 
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   # マイページの表示
   def mypage
@@ -11,7 +11,7 @@ class Public::UsersController < ApplicationController
 
   # ユーザーの詳細画面の表示
   def show
-  @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   # マイプロフィール編集の表示
@@ -35,7 +35,7 @@ class Public::UsersController < ApplicationController
   def unsubscribe
   end
 
-    # ユーザー退会処理（ステータスの更新）
+  # ユーザー退会処理（ステータスの更新）
   def withdraw
     if current_user.update(is_active: false)
       reset_session
@@ -49,16 +49,15 @@ class Public::UsersController < ApplicationController
 
   # ユーザーデータのストロングパラメータ
   private
+    def user_params
+      params.require(:user).permit(:email, :nickname, :user_image, :introduction)
+    end
 
-  def user_params
-    params.require(:user).permit(:email, :nickname, :user_image, :introduction)
-  end
-
-  # 該当ユーザーでない場合、アクセスを制限するメソッド
-  def ensure_correct_user
+    # 該当ユーザーでない場合、アクセスを制限するメソッド
+    def ensure_correct_user
       unless @user = current_user
         flash[:alert] = "権限がありません"
         redirect_to root_path
       end
-  end
+    end
 end

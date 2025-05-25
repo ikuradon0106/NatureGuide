@@ -15,9 +15,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-   # 新規登録後にログインページに転移
-   def after_sign_up_path_for(resource)
-    new_user_session_path 
+  # 新規登録後にログインページに転移
+  def after_sign_up_path_for(resource)
+    new_user_session_path
   end
 
   # ログアウト後にマイページに転移
@@ -27,9 +27,7 @@ class ApplicationController < ActionController::Base
 
   # 他のコントローラでも使えるように protected を設定
   protected
-
-  def set_api_key
-    @maps_api_key = ENV['Maps_API_Key']
-  end
-
+    def set_api_key
+      @maps_api_key = ENV["Maps_API_Key"]
+    end
 end

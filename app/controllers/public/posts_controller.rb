@@ -1,7 +1,7 @@
 class Public::PostsController < ApplicationController
   # 該当ユーザーとしてログインしている場合のみアクセス許可
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy] 
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   # 新規投稿の表示
   def new
@@ -29,7 +29,6 @@ class Public::PostsController < ApplicationController
 
   # 投稿データの保存
   def create
-    
   end
 
   # 投稿の編集画面
@@ -40,7 +39,7 @@ class Public::PostsController < ApplicationController
   # 投稿の更新処理
   def update
     @post = Post.find(params[:id])
-    
+
     if @post.update(post_params)
       flash[:notice] = "編集に成功しました。"
       redirect_to post_path(@post)
@@ -59,17 +58,16 @@ class Public::PostsController < ApplicationController
 
   # 投稿データのストロングパラメータ
   private
-
-  def post_params
-    params.require(:post).permit(:title, :body, :image, :address, :latitude, :longitude)
-  end
-
-  # 投稿者でない場合、アクセスを制限するメソッド
-  def ensure_correct_user
-    @post = Post.find(params[:id])
-    unless @post.user == current_user
-      flash[:alert] = "権限がありません"
-      redirect_to posts_path
+    def post_params
+      params.require(:post).permit(:title, :body, :image, :address, :latitude, :longitude)
     end
-  end
+
+    # 投稿者でない場合、アクセスを制限するメソッド
+    def ensure_correct_user
+      @post = Post.find(params[:id])
+      unless @post.user == current_user
+        flash[:alert] = "権限がありません"
+        redirect_to posts_path
+      end
+    end
 end

@@ -31,8 +31,7 @@ class Admin::UsersController < ApplicationController
 
   # ユーザーデータのストロングパラメータ
   private
-
-  def user_params
-    params.require(:user).permit(:email, :nickname, :user_image, :introduction, :is_active)
-  end
+    def user_params
+      params.require(:user).permit(:email, :nickname, :user_image, :introduction, :is_active)
+    end
 end

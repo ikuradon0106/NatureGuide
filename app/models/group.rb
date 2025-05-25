@@ -13,7 +13,7 @@ class Group < ApplicationRecord
   # 検索ワードをもとに、Groupモデルのnameカラムに部分一致するユーザーを取得する
   # SQLのLIKE句を使用し、「名前に検索語が含まれているか」を判定する
   def self.search_for(word)
-    where('group_name LIKE ?', "%#{word}%")
+    where("group_name LIKE ?", "%#{word}%")
   end
 
   # ユーザーがowner.idか確認するメソッド
@@ -30,5 +30,4 @@ class Group < ApplicationRecord
       group_users.create(user_id: owner_id)
     end
   end
-
 end
