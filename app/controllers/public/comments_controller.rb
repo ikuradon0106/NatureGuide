@@ -17,6 +17,7 @@ class Public::CommentsController < ApplicationController
 
     if @comment.save
       flash[:notice] = "投稿に成功しました。"
+      # コメント一覧画面へ遷移
       redirect_to post_comments_path(@post)
     else
       # errors[]→特定の属性についてエラーメッセージをチェックしたい場合に使用（バリテーションエラーで、空欄をユーザーに提示）
@@ -25,6 +26,7 @@ class Public::CommentsController < ApplicationController
       else
         flash.now[:alert] = "投稿に失敗しました。"
       end
+      # 投稿詳細画面へ再度表示
       render "public/posts/show"
     end
 
@@ -50,10 +52,12 @@ class Public::CommentsController < ApplicationController
       # コメント更新処理
       if @comment.update(comment_params)
         flash[:notice] = "編集に成功しました。"
+        # 
         redirect_to post_comments_path(@post)
       else
         # バリテーションエラーで、空欄をユーザーに提示
         flash.now[:alert] = "編集に失敗しました。コメントは空欄にはできません。"
+        # 投稿編集画面へ再度表示
         render :edit
       end
     end
