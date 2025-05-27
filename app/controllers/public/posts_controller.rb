@@ -19,6 +19,7 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
+    @comments = @post.comments.page(params[:page]).per(3)
 
     # リクエストのレスポンス形式によってRailsが返す処理を切り替える（APIとしてJSONを使いたいための記述）
     respond_to do |format|
@@ -26,13 +27,11 @@ class Public::PostsController < ApplicationController
       format.html
       # JSON形式でレスポンスを返す場合
       # format.json { render 'show' }
-       format.json do
+      format.json do
         # show.json..jbuilderを表示させる（as_jsonで@postをハッシュ形式のJSONに変換）
-         render json: @post.as_json(only: [:id, :title, :body, :latitude, :longitude, :address])
-       end
-
+        render json: @post.as_json(only: [:id, :title, :body, :latitude, :longitude, :address])
+      end
     end
-
   end
 
   # 投稿データの保存
@@ -57,7 +56,6 @@ class Public::PostsController < ApplicationController
       # 投稿編集ページを再度表示
       render :edit
     end
-
   end
 
   # 投稿の削除処理
@@ -69,7 +67,6 @@ class Public::PostsController < ApplicationController
   end
 
   private
-
     # 投稿データのストロングパラメータ（許可されたパラメータのみを取得）
     def post_params
       params.require(:post).permit(:title, :body, :image, :address, :latitude, :longitude)
@@ -85,7 +82,5 @@ class Public::PostsController < ApplicationController
         # 投稿一覧ページに遷移し、不正アクセスを防止
         redirect_to posts_path
       end
-
     end
-
 end

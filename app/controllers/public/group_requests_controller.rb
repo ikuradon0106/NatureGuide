@@ -31,15 +31,15 @@ class Public::GroupRequestsController < ApplicationController
     if current_user.id == @group.owner_id
 
       # ハッシュを使用して、処理速度を早くする
-        decisions = {
-        "承認" => { status: "approved", flash_key: :notice, message: "#{@group_request.user.nickname}さんの申請を承認しました" },
-        "拒否"  => { status: "rejected", flash_key: :alert, message: "#{@group_request.user.nickname}さんの申請を拒否しました" }
-      }
+      decisions = {
+      "承認" => { status: "approved", flash_key: :notice, message: "#{@group_request.user.nickname}さんの申請を承認しました" },
+      "拒否" => { status: "rejected", flash_key: :alert, message: "#{@group_request.user.nickname}さんの申請を拒否しました" }
+    }
 
       # params[:decision] に対応する処理をハッシュから取得
       decision = decisions[params[:decision]]
 
-      
+
       if decision
         # 該当する場合はステータス更新とフラッシュメッセージを設定
         @group_request.update(status: decision[:status])
@@ -72,5 +72,4 @@ class Public::GroupRequestsController < ApplicationController
 
     redirect_to group_path(@group)
   end
-
 end

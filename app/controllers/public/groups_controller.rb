@@ -37,7 +37,6 @@ class Public::GroupsController < ApplicationController
       # グループの新規登録画面に再表示
       render :new
     end
-
   end
 
   # グループ編集画面の表示
@@ -59,7 +58,6 @@ class Public::GroupsController < ApplicationController
       # グループ詳細画面を再表示
       render :edit
     end
-
   end
 
   # グループ削除処理
@@ -72,9 +70,7 @@ class Public::GroupsController < ApplicationController
 
   # グループのストロングパラメータ（許可されたパラメータのみを取得）
   private
-
     def group_params
       params.require(:group).permit(:group_image, :group_name, :description)
     end
-
 end

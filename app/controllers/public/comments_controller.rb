@@ -5,7 +5,7 @@ class Public::CommentsController < ApplicationController
   # コメント一覧画面の表示（指定された投稿に紐づくコメントをページネーション付きで取得）
   def index
     @post = Post.find(params[:post_id])
-    @comments = @post.comments.page(params[:page])
+    @comments = @post.comments.page(params[:page]).per(10)
   end
 
   # コメント新規投稿処理
@@ -17,8 +17,8 @@ class Public::CommentsController < ApplicationController
 
     if @comment.save
       flash[:notice] = "投稿に成功しました。"
-      # コメント一覧画面へ遷移
-      redirect_to post_comments_path(@post)
+      # コメント一覧がある投稿詳細画面へ遷移
+      redirect_to post_path(@post)
     else
       # errors[]→特定の属性についてエラーメッセージをチェックしたい場合に使用（バリテーションエラーで、空欄をユーザーに提示）
       if @comment.errors[:body].present?
@@ -52,14 +52,15 @@ class Public::CommentsController < ApplicationController
       # コメント更新処理
       if @comment.update(comment_params)
         flash[:notice] = "編集に成功しました。"
-        # 
-        redirect_to post_comments_path(@post)
+        # コメント一覧がある投稿詳細画面へ遷移
+        redirect_to post_path(@post)
       else
         # バリテーションエラーで、空欄をユーザーに提示
         flash.now[:alert] = "編集に失敗しました。コメントは空欄にはできません。"
         # 投稿編集画面へ再度表示
         render :edit
       end
+
     end
 
   end
@@ -77,14 +78,15 @@ class Public::CommentsController < ApplicationController
       flash[:alert] = "自分のコメント以外は削除できません。"
     end
 
-    redirect_to post_comments_path(@post)
+    # コメント一覧がある投稿詳細画面へ遷移
+    redirect_to post_path(@post)
   end
 
   # コメントのストロングパラメータ（許可されたパラメータのみを取得）
   private
-
+  
     def comment_params
       params.require(:comment).permit(:body)
     end
-    
+
 end
