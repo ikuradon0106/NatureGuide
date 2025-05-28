@@ -1,2 +1,59 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<div class="container mt-5">
+  <h1 class="mb-4">投稿一覧</h1>
+
+  <% if @posts.present? %>
+    <div class="timeline">
+      <% @posts.each do |post| %>
+        <div class="timeline-item d-flex mb-5">
+
+          <!-- 左側：日時・アイコン -->
+          <div class="timeline-time text-center me-4" style="width: 120px; min-width: 120px;">
+            <% if post.user.user_image.attached? %>
+              <%= image_tag post.user.user_image.variant(resize_to_limit: [50, 50]), alt: "プロフィール画像", class: "rounded-circle" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', width: 50, height: 50, alt: "プロフィール画像なし", class: "rounded-circle" %>
+            <% end %>
+            <small class="text-muted d-block"><%= post.created_at.strftime('%Y/%m/%d') %></small>
+          </div>
+
+          <!-- 右側：投稿内容 -->
+          <div class="flex-grow-1">
+            <div class="card shadow-sm p-3">
+              <div class="d-flex align-items-start">
+
+                <!-- 投稿画像 -->
+                <div class="me-4" style="width: 300px;">
+                  <% if post.get_image.present? %>
+                    <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "img-fluid rounded", alt: post.title, style: "width: 300px; height: auto;" %>
+                  <% else %>
+                    <%= image_tag 'no_image.jpg', width: 300, height: 200, alt: "画像なし", class: "img-fluid rounded" %>
+                  <% end %>
+                </div>
+
+                <!-- テキスト内容 -->
+                <div class="flex-grow-1 mt-1">
+                  <h5 class="card-title"><%= post.title %></h5>
+                  <p class="card-text"><%= truncate(post.body, length: 150) %></p>
+                  <p class="card-text"><small class="text-muted">住所：<%= post.address %></small></p>
+                  <p class="card-text"><small class="text-muted">投稿者：<%= post.user.nickname %></small></p>
+                  
+                  <div class="d-flex gap-2 mt-2">
+                    <%= link_to "詳細", admin_post_path(post), class: "btn btn-outline-primary btn-sm" %>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted mt-4">投稿はまだありません。</p>
+  <% end %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @posts %>
+  </div>
+</div>

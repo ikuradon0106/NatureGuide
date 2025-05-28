@@ -1,26 +1,60 @@
-<h1>グループ一覧（管理者）</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">登録グループ一覧</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>名前</th>
-      <th>作成者</th>
-      <th>作成日</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @groups.each do |group| %>
-      <tr>
-        <td><%= group.id %></td>
-        <td><%= link_to group.group_name, admin_group_path(group) %></td>
-        <td><%= User.find_by(id: group.owner_id)&.nickname %></td>
-        <td><%= group.created_at.to_s(:datetime_jp) %></td>
-        <td>
-          <%= button_to "削除", admin_group_path(group), method: :delete, "data-confirm" => "本当に削除しますか？",  class: "btn btn-danger btn-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <% if @groups.any? %>
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>オーナーID</th>
+          <th>作成者</th>
+          <th>グループアイコン</th>
+          <th>グループ名</th>
+          <th>作成日時</th>
+          <th>紹介文</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @groups.each do |group| %>
+          <tr>
+            <td><%= group.owner_id %></td>
+            <td><%#= group.owner.nickname if group.owner.present? %></td>
+
+            <td>
+              <% if group.group_image.attached? %>
+                <%= image_tag group.group_image.variant(resize_to_limit: [100, 100]), class: "img-fluid rounded", style: "width: 80px; height: auto;" %>
+              <% else %>
+                <span class="text-muted">なし</span>
+              <% end %>
+            </td>
+
+            <td><%= group.group_name %></td>
+
+            <td><%= group.created_at.to_s(:datetime_jp) %></td>
+
+            <td><%= truncate(group.description, length: 50) %></td>
+
+            <td>
+              <div class="d-flex gap-1">
+                <%= link_to "詳細", admin_group_path(group), class: "btn btn-outline-primary btn-sm" %>
+                <%= link_to "削除", admin_group_path(group), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
+              </div>  
+            </td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info">
+      現在、登録されているグループはありません。
+    </div>
+  <% end %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @groups %>
+  </div>
+
+  <%= link_to "新しいグループを作成", new_admin_group_path, class: "btn btn-success mt-3" %>
+</div>

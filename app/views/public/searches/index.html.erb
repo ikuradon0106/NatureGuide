@@ -1,0 +1,46 @@
+<% if @results.present? %>
+   <h2 class="text-center mb-4">検索結果（<%= @results.total_count %> 件）</h2>
+
+   <div class="row row-cols-1 row-cols-md-2 g-4">
+        <% @results.each do |result| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+
+            <!-- 画像の表示 -->
+            <% image_url = @image_urls[result["key"]] %>
+            <% if image_url.present? %>
+                <%= image_tag image_url, class: "card-img-top img-fluid", alt: "生物の画像" %>
+            <% else %>
+              <div class="text-center p-3 text-muted">画像は見つかりませんでした。</p>
+            <% end %>
+
+            <div class="card-body">
+              <h5 class="card-title"><strong>学名:</strong> <%= result["scientificName"] %></h5>
+              <p class="card-text"><strong>和名/英名:</strong> <%= result["vernacularName"].presence || "情報なし" %></p>
+              <p class="card-text">
+                <strong>分類:</strong><br>
+                  <%= result["kingdom"] %> /
+                  <%= result["phylum"] %> /
+                  <%= result["class"] %> /
+                  <%= result["order"] %> /
+                  <%= result["family"] %> /
+                  <%= result["genus"] %>
+                 </p>
+      <p class="card-text"><strong>命名者:</strong> <%= result["authorship"].presence || "不明" %></p>
+      <p class="card-text"><strong>初出文献:</strong> <%= result["publishedIn"].presence || "不明" %></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  </div>
+
+<div class="mt-4 d-flex justify-content-center">
+  <%= paginate @results %>
+</div>
+
+<% else %>
+  <div class="alert alert-warning text-center" role="alert">
+    検索結果は見つかりませんでした。
+  </div>
+<% end %>
+

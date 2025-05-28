@@ -1,2 +1,46 @@
-<h1>Admin::Groups#show</h1>
-<p>Find me in app/views/admin/groups/show.html.erb</p>
+<div class="container mt-5">
+  <h2 class="mb-4">グループ詳細：<%= @group.group_name %></h2>
+
+  <div class="row">
+    <!-- グループ画像 -->
+    <div class="col-md-6 mb-3">
+      <% if @group.group_image.attached? %>
+        <%= image_tag @group.group_image.variant(resize_to_limit: [800, 200]), alt: @group.group_name, style: "max-width: 600px; height: auto;" %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', class: "card-img-top", alt: "No Image", style: "max-width: 400px; height: auto;" %>
+      <% end %>
+    </div>
+
+    <!-- グループ情報 -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">紹介文</h5>
+          <p class="card-text"><%= simple_format(@group.description) %></p>
+
+          <p class="text-muted"><strong>作成日時:</strong> <%= @group.created_at.to_s(:datetime_jp) %></p>
+          <p><strong>メンバー数:</strong> <%= @group.users.count %>人</p>
+
+          <p><strong>オーナーID:</strong> <%= @group.owner_id %></p>
+          <%# if @group.owner.present? %>
+            <p><strong>オーナー名:</strong> <%#= @group.owner.nickname %></p>
+          <%# end %>
+
+          <h5 class="mt-4">メンバー一覧</h5>
+          <ul>
+            <% @group.users.each do |user| %>
+              <li><%= user.nickname %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 管理アクション -->
+  <div class="mt-4 d-flex gap-2">
+    <%= link_to "編集", edit_admin_group_path(@group), class: "btn btn-outline-primary" %>
+    <%= link_to "削除", admin_group_path(@group), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+    <%= link_to "グループ一覧に戻る", admin_groups_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>

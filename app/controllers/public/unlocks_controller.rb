@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# アカウントロック解除（Unlock）機能のコントローラーのテンプレート
+
 class Public::UnlocksController < Devise::UnlocksController
   # GET /resource/unlock/new
   # def new

@@ -12,19 +12,27 @@ class Post < ApplicationRecord
   # バリテーション設定（空のカラムになっていないかどうか）
   validates :title, presence: true, length: { maximum: 100 }
   validates :body,  presence: true
+  validates :address, presence: true
+
+  # addressカラムの内容を緯度・経度に変換することを指定
+  geocoded_by :address
+
+  # バリデーションの実行後に変換処理を実行して、latitudeカラム・longitudeカラムに緯度・経度の値が入力
+  after_validation :geocode
+
 
   # 画像がなければ、保存画像を表示
   def get_image
-   if image.attached?
-       image
-     else
-       'no_image.jpg'
-     end
+    if image.attached?
+      image
+    else
+      nil
+    end
   end
 
   # 検索ワードをもとに、Postモデルのnameカラムに部分一致するユーザーを取得する
   # SQLのLIKE句を使用し、「名前に検索語が含まれているか」を判定する
   def self.search_for(word)
-    where('title LIKE ?', "%#{word}%")
+    where("title LIKE ?", "%#{word}%")
   end
 end

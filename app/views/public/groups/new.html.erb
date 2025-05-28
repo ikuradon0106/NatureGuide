@@ -1,23 +1,29 @@
-<h1>新しいグループを作成</h1>
+<div class="container mt-5">
+  <div class="card">
+      <h2 class="mb-0">新しいグループを作成</h2>
+    </div>
+    <div class="card-body">
+      <%= form_with model: @group, url: groups_path, method: :post, html: { multipart: true } do |f| %>
+        <div class="mb-3">
+          <%= f.label :group_image, "グループアイコン", class: "form-label" %><br>
+          <%= f.file_field :group_image %>
+        </div>
 
-<%= form_with model: @group, url: groups_path, method: :post do |f| %>
-  <div>
-    <%= f.label :group_image, "グループアイコン" %>
-    <%= f.file_field :group_image %>
-  </div>
+        <div class="mb-3">
+          <%= f.label :group_name, "グループ名", class: "form-label" %>
+          <%= f.text_field :group_name, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= f.label :group_name, "グループ名" %>
-    <%= f.text_field :group_name, class: "form-control" %>
-  </div>
+        <div class="mb-3">
+          <%= f.label :description, "紹介文", class: "form-label" %>
+          <%= f.text_area :description, class: "form-control", rows: 5 %>
+        </div>
 
-  <div>
-    <%= f.label :description, "紹介文" %>
-    <%= f.text_area :description, class: "form-control", rows: 5 %>
-  </div>
+        <div class="mt-4 d-flex">
+          <%= f.submit "グループを作成", class: "btn btn-success me-2" %>
+          <%= link_to "戻る", groups_path, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+</div>
 
-  <div>
-    <%= f.submit "グループを作成", class: "btn btn-success" %>
-    <%= link_to "戻る", groups_path, class: "btn btn-secondary ms-2" %>
-  </div>
-<% end %>

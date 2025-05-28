@@ -1,20 +1,21 @@
 <% if user_signed_in? %>
-  <%= form_with url: search_feature_path, method: :get do |f| %>
-    <div class="input-group mr-5">
-      <%# 検索キーワード  %>
-      <%= f.text_field :word, placeholder: "ユーザー、投稿、グループを検索" %>
+  <%= form_with url: search_feature_path, method: :get, local: true do |f| %>
+    <div class="input-group mb-3" style="max-width: 600px">
+      
+      <%# 検索フィールド %>
+      <%= f.text_field :word, placeholder: "ユーザー、投稿、グループを検索", class: "form-control", style: "width: 400px;"  %>
 
-      <%# 検索対象のモデルを選択  %>
+      <%# 検索対象モデルのセレクトボックス %>
       <%= f.select :model, 
           options_for_select({
-          "すべて" => "", 
-          "ユーザー" => "user",
-          "投稿" => "post",
-          "グループ" => "group",
-          }) %>
+            "すべて" => "", 
+            "ユーザー" => "user",
+            "投稿" => "post",
+            "グループ" => "group",
+          }), {}, class: "form-select" %>
 
-      <%# 検索ボタン  %>
-      <%= f.submit "検索" %>
+      <%# 検索ボタン %>
+      <button class="btn btn-primary" type="submit">検索</button>
     </div>
   <% end %>
 <% end %>

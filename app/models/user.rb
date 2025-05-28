@@ -15,16 +15,16 @@ class User < ApplicationRecord
   has_many :group_users,   dependent: :destroy       # 中間テーブルで結ばれている
   has_many :groups,        through: :group_users     # groupとuserの中間テーブル
 
-    # アソシエーション定義（N:Nを中間テーブルを経由）
-    has_many :group_requests,   dependent: :destroy       # 中間テーブルで結ばれている
-    has_many :groups,        through: :group_requests     # groupとuserの中間テーブル
-  
+  # アソシエーション定義（N:Nを中間テーブルを経由）
+  has_many :group_requests,   dependent: :destroy       # 中間テーブルで結ばれている
+  has_many :groups,        through: :group_requests     # groupとuserの中間テーブル
+
   # バリテーション設定（空のカラムになっていないかどうか）
   validates :email, :nickname, presence: true
 
   # 検索ワードをもとに、Userモデルのnicknameカラムに部分一致するユーザーを取得する
   # SQLのLIKE句を使用し、「nicknameに検索語が含まれているか」を判定する
   def self.search_for(word)
-    where('nickname LIKE ?', "%#{word}%")
+    where("nickname LIKE ?", "%#{word}%")
   end
 end

@@ -1,0 +1,18 @@
+document.getElementById("search-results").innerHTML = "<%= j render partial: 'public/searches/results', locals: { results: @results, image_urls: @image_urls } %>";
+
+document.querySelectorAll('.species-image').forEach(function(div) {
+  const taxonKey = div.dataset.taxonKey;
+
+  fetch(`/searches/fetch_image?taxon_key=${taxonKey}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.image_url) {
+        div.innerHTML = `<img src="${data.image_url}" alt="Species image" width="150">`;
+      } else {
+        div.innerHTML = "画像なし";
+      }
+    })
+    .catch(() => {
+      div.innerHTML = "画像取得失敗";
+    });
+});

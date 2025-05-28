@@ -1,44 +1,43 @@
-<h1><%= @user.nickname %>さんのマイページ</h1>
+<div class="container mt-5">
+  <div class="row">
+  
+    <!-- 左側：プロフィール -->
+    <div class="col-md-4 mb-4">
+      <%= render 'profile', user: @user %>
+    </div>
 
-<%# ユーザーの詳細 %>
+    <!-- 右側：投稿一覧 -->
+    <div class="col-md-8">
+      <h2 class="mb-4"><%= @user.nickname %>さんの投稿一覧</h2>
 
-<div>
-  <h2><%= @user.nickname %>さんのプロフィール</h2>
-  <% if @user.user_image.attached? %>
-    <%= image_tag @user.user_image %>
-  <% else %>
-    <%= image_tag 'no_image.jpg' %>
-  <% end %>
+      <% if @user_posts.any? %>
+        <% @user_posts.each do |user_post| %>
+          <div class="card mb-4">
+            <%# 投稿画像 %>
+            <% if user_post.get_image.present? %>
+              <%= image_tag user_post.get_image, class: "card-img-top", style: "max-height: 300px; object-fit: cover;" %>
+            <% end %>
 
-  <p><strong>メールアドレス:</strong> <%= @user.email %></p>
-  <p><strong>自己紹介:</strong> <%= @user.introduction %></p>
-  <%= link_to "プロフィール編集", users_mypage_edit_path, class: "btn btn-primary" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= user_post.title %></h5>
+              <p class="card-text"><%= truncate(user_post.body, length: 100) %></p>
+
+              <p class="text-muted small mb-0">緯度：<%= user_post.latitude %>  経度：<%= user_post.longitude %></p>
+              <p class="text-muted small">住所：<%= user_post.address %></p>
+              <%= link_to "詳細", post_path(user_post), class: "btn btn-outline-primary btn-sm mt-2" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-muted">まだ投稿はありません。</p>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<%# ユーザーの投稿一覧 %>
+<div class="d-flex justify-content-center mt-4">
+<%= paginate @user_posts %>
+</div>
 
-<h2><%= @user.nickname %>さんの投稿一覧</h2>
-  <% if @user_posts.any? %>
-    <% @user_posts.each do |user_post| %>
-      <div>
-        <%# 画像表示（画像がなければデフォルト表示） %>
-        <%= image_tag user_post.get_image, class: "rounded float-start w-50" %>
-      </div>
 
-      <div>
-        <h5><%= user_post.title %></h5>
-        <p><%= user_post.body %></p>
-        <p class="text-muted mb-1">
-          緯度: <%= user_post.latitude %>
-          経度: <%= user_post.longitude %>
-        </p>
-        <p>
-          位置情報： <%= user_post.location_name %>
-        </p>
-      </div>
-    <% end %>
-
-  <% else %>
-    <p>まだ投稿はありません。</p>
-  <% end %>
 

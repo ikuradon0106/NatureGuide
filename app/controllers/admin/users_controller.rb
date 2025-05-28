@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
 
   # 全ユーザー一覧画面の表示
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   # 各ユーザー詳細画面の表示
@@ -31,8 +31,7 @@ class Admin::UsersController < ApplicationController
 
   # ユーザーデータのストロングパラメータ
   private
-
-  def user_params
-    params.require(:user).permit(:email, :nickname, :user_image, :introduction, :is_active)
-  end
+    def user_params
+      params.require(:user).permit(:email, :nickname, :user_image, :introduction, :is_active)
+    end
 end

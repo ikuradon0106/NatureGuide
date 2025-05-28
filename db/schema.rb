@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2025_05_18_003428) do
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -97,9 +96,9 @@ ActiveRecord::Schema.define(version: 2025_05_18_003428) do
     t.string "title", null: false
     t.string "image"
     t.text "body", null: false
-    t.string "location_name", null: false
-    t.decimal "latitude", precision: 9, scale: 6, null: false
-    t.decimal "longitude", precision: 9, scale: 6, null: false
+    t.string "address", default: "", null: false
+    t.float "latitude", default: 0.0, null: false
+    t.float "longitude", default: 0.0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

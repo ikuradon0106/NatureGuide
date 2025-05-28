@@ -1,0 +1,4 @@
+//コメント一覧を非同期更新
+$("#comments-list").html("<%= j render partial: 'comments_list', locals: { comments: Comment.all.page(params[:page]) } %>");
+$("#new_comment")[0].reset();
+alert("コメントを追加しました");

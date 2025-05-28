@@ -1,9 +1,7 @@
 <h1>コメント編集画面</h1>
 
-<%= render 'public/posts/error_messages', post: @post %>
-
 <%= form_with(model: [@post, @comment]) do |f| %>
   <%= f.text_area :body, rows:'5', class: "w-100" %>
   <%= f.submit "更新する", class: "btn btn-success" %>
-  <%= link_to "戻る", post_comments_path(@post), class: "btn btn-secondary ms-2" %>
+  <%= link_to "戻る", post_path(@post), class: "btn btn-secondary ms-2" %>
 <% end %>

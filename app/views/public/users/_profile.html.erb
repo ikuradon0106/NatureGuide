@@ -1,0 +1,19 @@
+<div class="card p-3">
+  <div class="text-center">
+    <% if user.user_image.attached? %>
+      <%= image_tag user.user_image, class: "rounded-circle mb-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+    <% else %>
+      <%= image_tag 'no_image.jpg', class: "rounded-circle mb-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+    <% end %>
+    <h4><%= user.nickname %></h4>
+  </div>
+
+  <hr>
+
+  <p><strong>メールアドレス：</strong><br><%= user.email %></p>
+  <p><strong>自己紹介：</strong><br><%= simple_format(user.introduction.presence || "未設定です") %></p>
+
+  <div class="d-grid">
+    <%= link_to "プロフィール編集", users_mypage_edit_path, class: "btn btn-outline-primary btn-sm mt-2" %>
+  </div>
+</div>

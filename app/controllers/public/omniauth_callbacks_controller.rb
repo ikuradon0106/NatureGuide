@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# DeviseのOmniAuth連携機能を使って外部認証（SNSログインなど）を実装するためのコントローラーのテンプレート
+
 class Public::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
