@@ -46,7 +46,7 @@ class Admin::GroupsController < ApplicationController
     end
   end
 
-    # グループ削除処理
+  # グループ削除処理
   def destroy
     @group = Group.find(params[:id])
 
@@ -65,9 +65,7 @@ class Admin::GroupsController < ApplicationController
   end
 
   private
-
-  def group_params
-    params.require(:group).permit(:group_name, :description, :group_image)
-  end
-
+    def group_params
+      params.require(:group).permit(:group_name, :description, :group_image)
+    end
 end

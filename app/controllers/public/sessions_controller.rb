@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# ユーザーの「ログイン・ログアウト」に関する処理を担うコントローラー
+
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 

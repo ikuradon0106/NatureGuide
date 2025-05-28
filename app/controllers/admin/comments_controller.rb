@@ -13,7 +13,7 @@ class Admin::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       respond_to do |format|
-        format.html { redirect_to admin_comments_path, notice: '新規コメント追加に成功しました。' }
+        format.html { redirect_to admin_comments_path, notice: "新規コメント追加に成功しました。" }
         format.js   # create.js.erb を実行
       end
     else
@@ -35,7 +35,7 @@ class Admin::CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    
+
     if @comment.update(comment_params)
       flash[:notice] = "編集に成功しました。"
       redirect_to admin_comments_path
@@ -59,8 +59,7 @@ class Admin::CommentsController < ApplicationController
 
   # コメントのストロングパラメータ
   private
-
-  def comment_params
-    params.require(:comment).permit(:user_id, :post_id, :body)
-  end
+    def comment_params
+      params.require(:comment).permit(:user_id, :post_id, :body)
+    end
 end

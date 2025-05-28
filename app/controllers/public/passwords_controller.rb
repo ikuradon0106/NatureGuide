@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Deviseのパスワード再設定（リセット）機能をカスタマイズしたい時に使う、コントローラーのテンプレート
+
 class Public::PasswordsController < Devise::PasswordsController
   # GET /resource/password/new
   # def new

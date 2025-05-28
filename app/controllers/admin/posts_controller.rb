@@ -27,7 +27,7 @@ class Admin::PostsController < ApplicationController
   # 投稿データの更新
   def update
     @post = Post.find(params[:id])
-    
+
     if @post.update(post_params)
       flash[:notice] = "編集に成功しました。"
       redirect_to admin_post_path(@post)
@@ -46,8 +46,7 @@ class Admin::PostsController < ApplicationController
 
   # 投稿データのストロングパラメータ
   private
-
-  def post_params
-    params.require(:post).permit(:title, :body, :image, :address, :latitude, :longitude)
-  end
+    def post_params
+      params.require(:post).permit(:title, :body, :image, :address, :latitude, :longitude)
+    end
 end
