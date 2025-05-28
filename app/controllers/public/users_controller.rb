@@ -9,7 +9,7 @@ class Public::UsersController < ApplicationController
     @user_posts = @user.posts.page(params[:page])
   end
 
-  # ユーザーの詳細画面の表示
+  # ユーザー詳細画面の表示
   def show
     @user = User.find(params[:id])
   end
