@@ -28,9 +28,9 @@ class Public::UsersController < ApplicationController
       # マイページに遷移
       redirect_to mypage_path(@user)
     else
-      flash.now[:alert] = "ユーザーの編集に失敗しました。"
+      flash[:alert] = "ユーザーの編集に失敗しました。"
       # ユーザー編集画面を再度表示
-      render :edit
+      redirect_to users_mypage_edit_path(@user)
     end
   end
 

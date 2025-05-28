@@ -4,32 +4,28 @@
 
 <h1 class="mb-4">投稿編集画面</h1>
 
-<%= render 'public/posts/form_post', post:@post %>
-
-
-
-
 <%= form_with model: @post do |f| %>
   <div class="mb-3">
-    <%= f.label :title, "タイトル" %>
+    <%= f.label :title, "タイトル（必須）" %>
     <%= f.text_field :title, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :body, "説明" %>
+    <%= f.label :body, "説明（必須）" %>
     <%= f.text_area :body, class: "form-control", rows: 5 %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :latitude, "緯度" %>
-    <%= f.text_field :latitude, class: "form-control" %>
+  <%# 郵便番号は今回は保存する対象ではないため、text_field_tagを使用して単純なinputタグを生成 %>
+  <%= f.label :zipcode, "郵便番号", class: "form-label" %>
+  <%= text_field_tag :zipcode, nil, class: "form-control", placeholder: "郵便番号を入力してください（例: 123-4567）" %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :longitude, "経度" %>
-    <%= f.text_field :longitude, class: "form-control" %>
+  <%= f.label :address, "住所（必須）", class: "form-label" %>
+  <%= f.text_field :address, class: "form-control", placeholder: "住所を入力してください" %>
   </div>
-  
+
 
   <div class="mb-3">
     <%= f.label :image, "画像変更（任意）" %><br>
@@ -40,4 +36,3 @@
   <%= f.submit "更新する", class: "btn btn-success" %>
   <%= link_to "戻る", post_path(@post), class: "btn btn-secondary ms-2" %>
 <% end %>
-

@@ -26,6 +26,10 @@ class Public::CommentsController < ApplicationController
       else
         flash.now[:alert] = "投稿に失敗しました。"
       end
+
+      # コメント一覧を再取得
+      @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(4)
+
       # 投稿詳細画面へ再度表示
       render "public/posts/show"
     end

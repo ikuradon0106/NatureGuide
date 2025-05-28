@@ -36,6 +36,20 @@ class Public::PostsController < ApplicationController
 
   # 投稿データの保存
   def create
+      @post = Post.new(post_params)
+      # 投稿にユーザー情報を紐付ける
+      @post.user = current_user  
+    
+      if @post.save
+        flash[:notice] = "投稿が成功しました。"
+        # 投稿詳細ページへ遷移
+        redirect_to post_path(@post)  
+      else
+        flash.now[:alert] = "投稿に失敗しました。入力内容をご確認ください。"
+        # 新規投稿画面を再度表示
+        render :new 
+      end
+    
   end
 
   # 投稿の編集画面
