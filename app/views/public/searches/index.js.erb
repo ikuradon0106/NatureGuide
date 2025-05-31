@@ -1,18 +1,35 @@
+// ページ内の id="search-results" のクラスを取得し、その中身を更新（HTMLを書き換え）
+// document(=headやbodyなどのHTML要素を取得する、現在表示されているページ全体)
+// getElementById(=指定したID属性を持つHTML要素を取得することができるメソッド)→HTMLの中でIDが 'search-results' になっている場所を探して、その要素を取得してくださいとなる
+// innerHTML→要素の中のHTMLを取得したり、書き換えたりできる
+// =で結んだRubyコードをjavascrit用の文字列に更新してくださいという意味
 document.getElementById("search-results").innerHTML = "<%= j render partial: 'public/searches/results', locals: { results: @results, image_urls: @image_urls } %>";
 
-document.querySelectorAll('.species-image').forEach(function(div) {
-  const taxonKey = div.dataset.taxonKey;
 
+// クラス名'species-image'を持つすべての要素を取得し、順番に処理を行う
+// querySelectorAll→引数に記載した条件のHTMLの要素をすべてまとめて取得（今回なら、'species-image'クラスが対象）
+// forEach→取得した要素に対して、1つずつ順に処理を実行する反復処理メソッド
+// functionで関数の宣言を行う=引数に記載した関数を定義して実行する（今回はelement）
+document.querySelectorAll('.species-image').forEach(function(element) {
+  // 各要素に埋め込まれたデータ属性（data-taxon-key）から値を取得する
+  const taxonKey = element.dataset.taxonKey;
+
+  // サーバーに対して指定した taxonKey に基づく画像データの取得リクエストを送信する
   fetch(`/searches/fetch_image?taxon_key=${taxonKey}`)
+    // レスポンスをJSON形式に変換する（非同期処理）
     .then(response => response.json())
+    // JSONデータを受け取って処理を行う
     .then(data => {
+      // 画像URLが存在する場合は、要素の中に画像タグを挿入する
       if (data.image_url) {
         div.innerHTML = `<img src="${data.image_url}" alt="Species image" width="150">`;
       } else {
+        // 画像が存在しない場合は「画像なし」と表示する
         div.innerHTML = "画像なし";
       }
     })
     .catch(() => {
+      // 通信エラーなどで取得に失敗した場合の処理
       div.innerHTML = "画像取得失敗";
     });
 });
