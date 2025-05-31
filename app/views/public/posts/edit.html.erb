@@ -1,38 +1,49 @@
-<div class="container">
-  <div class="row justify-content-center"><!-- 中央寄せ -->
-    <div class="col-md-6">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm rounded-3">
+        <div class="card-header text-dark" style="background-color: #d4edda;">
+          <h4 class="mb-0">投稿編集画面</h4>
+        </div>
+        <div class="card-body">
 
-<h1 class="mb-4">投稿編集画面</h1>
+          <%= form_with model: @post do |f| %>
+            <div class="mb-3">
+              <%= f.label :title, "タイトル（必須）", class: "form-label" %>
+              <%= f.text_field :title, class: "form-control" %>
+            </div>
 
-<%= form_with model: @post do |f| %>
-  <div class="mb-3">
-    <%= f.label :title, "タイトル（必須）" %>
-    <%= f.text_field :title, class: "form-control" %>
+            <div class="mb-3">
+              <%= f.label :body, "説明（必須）", class: "form-label" %>
+              <%= f.text_area :body, class: "form-control", rows: 5 %>
+            </div>
+
+            <div class="mb-3">
+              <%# 郵便番号は保存対象外なのでtext_field_tagを使用 %>
+              <%= f.label :zipcode, "郵便番号", class: "form-label" %>
+              <%= text_field_tag :zipcode, nil, class: "form-control", placeholder: "郵便番号を入力してください（例: 123-4567）" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :address, "住所（必須）", class: "form-label" %>
+              <%= f.text_field :address, class: "form-control", placeholder: "住所を入力してください" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :image, "画像変更（任意）", class: "form-label" %><br>
+              <%= image_tag @post.get_image, class: "img-fluid mb-2", width: "200", style: "border: none;" %><br>
+              <%= f.file_field :image %>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3">
+              <%= f.submit "更新する", class: "btn btn-success" %>
+              <%= link_to "戻る", post_path(@post), class: "btn btn-secondary" %>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="mb-3">
-    <%= f.label :body, "説明（必須）" %>
-    <%= f.text_area :body, class: "form-control", rows: 5 %>
-  </div>
-
-  <div class="mb-3">
-  <%# 郵便番号は今回は保存する対象ではないため、text_field_tagを使用して単純なinputタグを生成 %>
-  <%= f.label :zipcode, "郵便番号", class: "form-label" %>
-  <%= text_field_tag :zipcode, nil, class: "form-control", placeholder: "郵便番号を入力してください（例: 123-4567）" %>
-  </div>
-
-  <div class="mb-3">
-  <%= f.label :address, "住所（必須）", class: "form-label" %>
-  <%= f.text_field :address, class: "form-control", placeholder: "住所を入力してください" %>
-  </div>
-
-
-  <div class="mb-3">
-    <%= f.label :image, "画像変更（任意）" %><br>
-    <%= image_tag @post.get_image, class: "img-thumbnail mb-2", width: "200" %><br>
-    <%= f.file_field :image %>
-  </div>
-
-  <%= f.submit "更新する", class: "btn btn-success" %>
-  <%= link_to "戻る", post_path(@post), class: "btn btn-secondary ms-2" %>
-<% end %>
+</div>

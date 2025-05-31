@@ -22,7 +22,6 @@
               <h5 class="card-title"><%= user_post.title %></h5>
               <p class="card-text"><%= truncate(user_post.body, length: 100) %></p>
 
-              <p class="text-muted small mb-0">緯度：<%= user_post.latitude %>  経度：<%= user_post.longitude %></p>
               <p class="text-muted small">住所：<%= user_post.address %></p>
               <%= link_to "詳細", post_path(user_post), class: "btn btn-outline-primary btn-sm mt-2" %>
             </div>
