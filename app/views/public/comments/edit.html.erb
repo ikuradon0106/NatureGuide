@@ -1,7 +1,24 @@
-<h1>コメント編集画面</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm rounded-3">
+        <div class="card-header text-dark" style="background-color: #d4edda;">
+          <h4 class="mb-0">コメント編集画面</h4>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: [@post, @comment]) do |f| %>
+            <div class="mb-3">
+              <%= f.label :body, "コメント内容", class: "form-label" %>
+              <%= f.text_area :body, rows: 5, class: "form-control" %>
+            </div>
 
-<%= form_with(model: [@post, @comment]) do |f| %>
-  <%= f.text_area :body, rows:'5', class: "w-100" %>
-  <%= f.submit "更新する", class: "btn btn-success" %>
-  <%= link_to "戻る", post_path(@post), class: "btn btn-secondary ms-2" %>
-<% end %>
+            <div class="d-flex justify-content-end">
+              <%= f.submit "更新する", class: "btn btn-success", style: "margin-right: 1.5rem;" %>
+              <%= link_to "戻る", post_path(@post), class: "btn btn-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
