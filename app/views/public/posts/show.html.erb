@@ -9,7 +9,13 @@
       <% else %>
     <%= image_tag 'no_image.jpg', class: "rounded w-100", alt: "画像なし" %>
       <% end %>
-    </div>
+
+      <div class="tag-box">
+        <% @post.tags.each do |tag| %>
+          <span class="label"><%= tag.name %></span>
+        <% end %>
+      </div>
+      </div>
 
     
     <!-- 投稿情報エリア -->
