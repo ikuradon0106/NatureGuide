@@ -3,7 +3,7 @@
   <!-- ログイン・新規登録 -->
   <section class="text-center py-5 mb-5" style="background-color: #eaf6ec; border-radius: 1rem;">
     <h1 class="display-4 fw-bold mb-3 text-success">NatureGuideへようこそ</h1>
-    <p class="lead mb-4">動植物の観察と記録を通じて、生物多様性を守るコミュニティサイトです。</p>
+    <p class="lead mb-4">生物の観察と記録を通じて、生物多様性を守るコミュニティサイトです。</p>
     <div>
       <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success btn-lg me-3" %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-success btn-lg" %>
@@ -15,7 +15,7 @@
     <div class="col-md-4 mb-4">
       <div class="p-4 border rounded shadow-sm bg-white h-100">
         <h3 class="h5 mb-3 text-success">1. 簡単投稿</h3>
-        <p>スマホやPCから、気軽に自然の写真を<br>投稿できます。</p>
+        <p>スマホやPCから、気軽に生物の写真を<br>投稿できます。</p>
       </div>
     </div>
     <div class="col-md-4 mb-4">
@@ -27,31 +27,14 @@
     <div class="col-md-4 mb-4">
       <div class="p-4 border rounded shadow-sm bg-white h-100">
         <h3 class="h5 mb-3 text-success">3. コミュニティで学ぶ</h3>
-        <p>自然好きの仲間と交流し、知識や発見を<br>共有しましょう。</p>
+        <p>仲間と交流し、知識や発見を<br>共有しましょう。</p>
       </div>
     </div>
   </section>
 
   <!-- 投稿イメージ -->
   <section>
-    <h2 class="mb-4 text-center text-success"> 最新の投稿</h2>
-    <div class="row">
-      <% @posts.each do |post| %>
-        <div class="col-md-4 mb-4">
-          <div class="card shadow-sm border-0 rounded-4">
-          <% if post.get_image.present? %>
-            <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "card-img-top rounded-top-4" %>
-          <% else %>
-            <%= image_tag 'no_image.jpg', class: "card-img-top rounded-top-4", style: "height: 180px; object-fit: cover;" %>
-          <% end %>
-            <div class="card-body">
-              <h5 class="card-title"><%= post.title %></h5>
-              <p class="card-text text-muted"><%= truncate(post.body, length: 80) %></p>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render 'public/homes/latest_posts' %>
   </section>
 
 </div>
