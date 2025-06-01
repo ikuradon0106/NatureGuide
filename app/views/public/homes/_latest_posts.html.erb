@@ -1,0 +1,33 @@
+<h2 class="mb-4 text-center text-success"> 最新の投稿</h2>
+
+<%# Swiperで自動スライド mySwiperをlatest_posts_swiper.jsで設定  %>
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+      <%# each_sliceメソッド→「何個ずつに分けて取り出すか」を決める（今回なら投稿3つに分けて、セットで画面に表示） %>
+      <% @posts.each_slice(3) do |post_group| %>
+        <div class="swiper-slide">
+          <div class="row">
+            <%# post_groupは3つの投稿をeachで回しているので、1件ずつ処理したいので、2重にeachで回す %>
+            <% post_group.each do |post| %>
+              <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 rounded-4">
+                  <%# 投稿画像が存在するかで表示する画像を変化 %>
+                  <% if post.get_image.present? %>
+                    <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "card-img-top rounded-top-4" %>
+                  <% else %>
+                    <%= image_tag 'no_image.jpg', class: "card-img-top rounded-top-4", style: "height: 180px; object-fit: cover;" %>
+                  <% end %>
+                <div class="card-body">
+                  <h5 class="card-title"><%= post.title %></h5>
+                  <p class="card-text text-muted"><%= truncate(post.body, length: 80) %></p>
+                </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% end %>
+      </div>
+      </div>
+      
+
+<%= javascript_pack_tag 'latest_posts_swiper', defer: true %>
