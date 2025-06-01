@@ -24,5 +24,8 @@ module PF
     config.i18n.default_locale = :ja
 
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # 自作したAPIライブラリを読み込む
+    config.paths.add 'lib', eager_load: true
   end
 end

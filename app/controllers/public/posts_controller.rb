@@ -39,8 +39,15 @@ class Public::PostsController < ApplicationController
       @post = Post.new(post_params)
       # 投稿にユーザー情報を紐付ける
       @post.user = current_user  
+
+      # 投稿した画像を Vision.get_image_data(list_params[:image]) でAPI側に渡す
+      tags = Vision.get_image_data(post_params[:image])
     
       if @post.save
+        # 
+        tags.each do |tag|
+          @post.tags.create(name: tag)
+        end
         flash[:notice] = "投稿が成功しました。"
         # 投稿詳細ページへ遷移
         redirect_to post_path(@post)  

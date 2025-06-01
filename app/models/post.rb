@@ -5,7 +5,8 @@ class Post < ApplicationRecord
   # アソシエーション定義（1:Nの「N」側）
   has_many :comments,        dependent: :destroy        # コメント機能
   has_many :categories,      dependent: :destroy        # カテゴリー機能
-
+  has_many :tags,            dependent: :destroy        # APIのタグ機能
+  
   # アソシエーション定義（1:Nの「1」側）
   belongs_to :user  # 各投稿は、1人のユーザーに紐づく
 
