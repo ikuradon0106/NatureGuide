@@ -1,4 +1,4 @@
-<div class="px-3 mt-4">
+<div class="container px-3 mt-4">
 <h1 class="mb-4">管理者ダッシュボード</h1>
 
 <%# グラフ作る→時間が合ったら %>
@@ -43,21 +43,12 @@
 </div>
 
 <div class="row">
-  <!-- 重要なお知らせ -->
-  <div class="col-md-6">
-    <div class="card mb-4">
-      <div class="card-header">
-        重要なお知らせ
-      </div>
-      <div class="card-body">
-        <%# ここにお知らせの一覧やリンクを記載 %>
-        <ul>
-          <li>新機能のリリース準備中です。</li>
-        </ul>
-      </div>
-    </div>
+      <!-- 重要なお知らせ -->
+  
+    <%= render 'admin/notices/index' %>
   </div>
-
+ 
+  <div class="row">
   <!-- 最新の活動ログ（例：新規登録ユーザー、最新投稿など） -->
   <div class="col-md-6">
     <div class="card mb-4">
@@ -81,6 +72,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 </div>
 
