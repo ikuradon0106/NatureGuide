@@ -10,12 +10,12 @@
             <%# post_groupは3つの投稿をeachで回しているので、1件ずつ処理したいので、2重にeachで回す %>
             <% post_group.each do |post| %>
               <div class="col-md-4 mb-4">
-                <div class="card shadow-sm border-0 rounded-4">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
                   <%# 投稿画像が存在するかで表示する画像を変化 %>
                   <% if post.get_image.present? %>
-                    <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "card-img-top rounded-top-4" %>
+                    <%= image_tag post.get_image.variant(resize_to_limit: [600, 400]), class: "card-img-top rounded-top-4 fixed-image" %>
                   <% else %>
-                    <%= image_tag 'no_image.jpg', class: "card-img-top rounded-top-4", style: "height: 180px; object-fit: cover;" %>
+                    <%= image_tag 'no_image.jpg', class: "card-img-top rounded-top-4 fixed-image" %>
                   <% end %>
                 <div class="card-body">
                   <h5 class="card-title"><%= post.title %></h5>
@@ -25,9 +25,10 @@
           </div>
         <% end %>
       </div>
-      <% end %>
-      </div>
-      </div>
+    </div>
+  <% end %>
+</div>
+</div>
       
 
 <%= javascript_pack_tag 'latest_posts_swiper', defer: true %>

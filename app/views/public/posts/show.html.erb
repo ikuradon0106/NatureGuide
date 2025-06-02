@@ -10,12 +10,18 @@
     <%= image_tag 'no_image.jpg', class: "rounded w-100", alt: "画像なし" %>
       <% end %>
 
-      <div class="tag-box">
-        <% @post.tags.each do |tag| %>
-          <span class="label"><%= tag.name %></span>
-        <% end %>
-      </div>
-      </div>
+  <!-- APIで導入した画像認識 -->
+  <% if @post.tags.present? %>
+  <div class="card">
+    <div class="card-body p-2">
+      <h6 class="card-subtitle mb-2 text-muted">画像認識タグ</h6>
+      <% @post.tags.each do |tag| %>
+        <span class="badge bg-success me-1 mb-1"><%= tag.name %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
 
     
     <!-- 投稿情報エリア -->

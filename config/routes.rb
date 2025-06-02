@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # ユーザー側
   # controllerがどこに存在するか記述(skipオプションで不要なroutingの削除)
   devise_for :users, skip: [:passwords], controllers: {
@@ -65,5 +66,8 @@ Rails.application.routes.draw do
       get "groups/add_member",  to: "groups#add_member"
       get "groups/remove_member",  to: "groups#remove_member"
     end
+
+    # notices関連
+    resources :notices, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 end
