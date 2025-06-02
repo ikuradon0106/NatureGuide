@@ -1,0 +1,19 @@
+<% notices = Notice.where(published: true).where("published_at <= ?", Time.current).order(published_at: :desc).limit(3) %>
+<% if notices.any? %>
+  <div class="card mt-4">
+    <div class="card-header bg-info text-white">
+      管理者からのお知らせ
+    </div>
+    <div class="card-body">
+      <ul class="mb-0">
+        <% notices.each do |notice| %>
+          <li>
+            <strong><%= notice.title %></strong>
+            <small class="text-muted">（<%= notice.published_at.strftime("%Y年%m月%d日") %>）</small><br>
+            <%= simple_format(truncate(notice.body, length: 100)) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

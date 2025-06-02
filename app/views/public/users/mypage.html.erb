@@ -1,10 +1,14 @@
 <div class="container mt-5">
   <div class="row">
   
-    <!-- 左側：プロフィール -->
+    <!-- 左側上：プロフィール -->
     <div class="col-md-4 mb-4">
       <%= render 'profile', user: @user %>
+
+    <!-- 左側下：管理者からのお知らせ -->
+      <%= render 'public/users/notices' %>
     </div>
+    
 
     <!-- 右側：投稿一覧 -->
     <div class="col-md-8">
@@ -35,7 +39,7 @@
 </div>
 
 <div class="d-flex justify-content-center mt-4">
-<%= paginate @user_posts %>
+  <%= paginate @user_posts %>
 </div>
 
 
