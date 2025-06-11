@@ -1,0 +1,21 @@
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    <h5 class="mb-0">分布図</h5>
+  </div>
+
+  <div class="card-body p-0">
+    <div id="map" style="height: 500px;"></div>
+  </div>
+
+  <div class="card-body">
+    <p>この分布図は、GBIF（Global Biodiversity Information Facility）のデータを利用しており、指定した生物の観測地点を地図上に表示しています。</p>
+    <p>地図が正しく表示されない場合は、以下の更新ボタンを押してページをリロードしてください。（観測地点がない場合は、ピンが表示されません）</p>
+  </div>
+
+  <div class="card-footer text-center">
+    <button type="button" class="btn btn-secondary me-2" onclick="history.back();">一つ前に戻る</button>
+    <button type="button" class="btn btn-primary" onclick="location.reload();">更新（表示されない場合）</button>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'maps_GBIF' %>

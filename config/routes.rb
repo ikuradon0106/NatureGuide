@@ -42,6 +42,12 @@ Rails.application.routes.draw do
     resources :searches, only: [:new, :index, :show]
     get "/search_feature", to: "searches#search_feature", as: "search_feature"
     get "searches/fetch_image", to: "public/searches#fetch_image"
+
+    # GBIFで表示させるmaps関連
+    get "maps", to: "maps#show", as: "maps"
+
+    # 非同期処理を追加
+    get "maps/fetch_map_data", to: "maps#fetch_map_data"
   end
 
   # 管理者側のルーティング（routingやcontroller、viewのパスも変更）

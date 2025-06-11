@@ -21,6 +21,8 @@
       </p>
       <p><strong>命名者:</strong> <%= result["authorship"].presence || "不明" %></p>
       <p><strong>初出文献:</strong> <%= result["publishedIn"].presence || "不明" %></p>
+      
+      <%= link_to "地図で見る", maps_path(taxon_key: result["key"]), class: 'btn btn-sm btn-outline-primary mt-2' %>
     </li>
   <% end %>
 </ul>
