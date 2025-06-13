@@ -1,6 +1,8 @@
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+<div class="container d-flex justify-content-center align-items-center mb-5" style="min-height: 80vh;">
   <div class="card shadow-sm p-4" style="width: 100%; max-width: 800px;">
-    <h1 class="mb-4 text-center">About - NatureGuide</h1>
+
+    <!-- 本文 -->
+    <h1 class="mb-4 text-center">About</h1>
 
     <section class="mb-4">
       <h2 class="h4 border-bottom pb-2">自己紹介</h2>
@@ -14,12 +16,27 @@
 
     <section class="mb-4">
       <h2 class="h4 border-bottom pb-2">サイト立ち上げの背景</h2>
+
+      <!-- イラストを追加 -->
+      <div class="text-center mb-4">
+        <%= image_tag "earth.png" , size: "200x200",  alt: "地球破壊のイメージ" %>
+      </div>
+
       <p>
         環境問題や生物多様性の喪失は、将来の世代に深刻な影響を及ぼす重要課題です。<br>
         しかし、一般の方々がそれらの情報に気軽にアクセスできる機会は限られており、
         植物や動物の識別を支援するツールもまだ発展途上にあります。<br>
         私自身、自然や植物に触れる中で「もっと多くの人が自然の豊かさを知り、
         守る行動につながるようなきっかけを作りたい」と強く感じ、このアプリの開発を決意しました。
+      </p>
+    </section>
+
+    <section class="mb-4">
+      <h2 class="h4 border-bottom pb-2">名称「NatureGuide」に込めた想い</h2>
+      <p>
+        「NatureGuide」という名前には、<strong>自然（Nature）を、みんなで案内（Guide）し合う</strong>という想いを込めています。<br>
+        一方的に情報を受け取るのではなく、<strong>ユーザー同士が観察や知識を共有しながら学び合い</strong>、自然環境への理解と関心を深めていただきたいという願いがあります。<br>
+        このアプリが、そんな双方向の学びとつながりを育む場になれば幸いです。
       </p>
     </section>
 
