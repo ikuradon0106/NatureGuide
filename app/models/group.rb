@@ -8,7 +8,11 @@ class Group < ApplicationRecord
 
   # アソシエーション定義（N:Nを中間テーブルを経由）
   has_many :group_requests,   dependent: :destroy       # 中間テーブルで結ばれている
-  has_many :users,        through: :group_requests     # groupとuserの中間テーブル
+  has_many :users,            through: :group_requests  # groupとuserの中間テーブル
+
+   # バリデーションを追加（必須入力）
+   validates :group_name,  presence: true
+   validates :description, presence: true
 
   # 検索ワードをもとに、Groupモデルのnameカラムに部分一致するユーザーを取得する
   # SQLのLIKE句を使用し、「名前に検索語が含まれているか」を判定する

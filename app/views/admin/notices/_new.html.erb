@@ -1,4 +1,4 @@
-<%= form_with model: @notice, url: admin_notices_path do |f| %>
+<%= form_with(model: [:admin, @notice], local: true) do |f| %>
 
   <div class="mb-3">
     <%= f.label :title, "タイトル", class: "form-label" %>
