@@ -13,6 +13,10 @@
     <!-- Swiperの導入（CDNで）-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <!-- ここからLeaflet.jpの読み込み追加(軽量でモバイル対応のオープンソースのJavaScriptライブラリで、地図を作成) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   </head>
 
   <body class="d-flex flex-column min-vh-100">
@@ -54,9 +58,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
 
-    <script 
-    async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<%= @maps_api_key %>&callback=initMap&libraries=marker">
-    </script>
+    <!--google mapAPIのAPIコード -->
+      <script 
+        src="https://maps.googleapis.com/maps/api/js?key=<%= @maps_api_key %>&callback=initMap&libraries=marker">
+        async
+        defer
+      </script>
   </body>
 </html>

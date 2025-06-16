@@ -1,26 +1,42 @@
-<ul class="list-unstyled">
-  <% results.each do |result| %>
-    <li class="mb-4 p-3 border rounded shadow-sm text-center">
-      <% image_url = image_urls[result["key"]] %>
-      <% if image_url.present? %>
-        <img src="<%= image_url %>" alt="生物の画像" class="mb-3 img-fluid" style="max-width: 300px;">
-      <% else %>
-        <div class="text-center p-3 text-muted mb-3">画像は見つかりませんでした。</div>
-      <% end %>
+<div class="search-results-section mt-4">
+  <h5 class="mb-3 text-center">検索結果一覧</h5>
+  <% if results.present? %>
+    <p class="text-center text-muted mb-4" style="font-size: 0.9rem;">
+      入力した学名に該当する生物の情報が表示されます。  
+      詳細情報や分布地図もご覧いただけます。
+    </p>
 
-      <h5><strong>学名:</strong> <%= result["scientificName"] %></h5>
-      <p><strong>和名/英名:</strong> <%= result["vernacularName"].presence || "情報なし" %></p>
-      <p>
-        <strong>分類:</strong><br>
-        <%= result["kingdom"] %> /
-        <%= result["phylum"] %> /
-        <%= result["class"] %> /
-        <%= result["order"] %> /
-        <%= result["family"] %> /
-        <%= result["genus"] %>
-      </p>
-      <p><strong>命名者:</strong> <%= result["authorship"].presence || "不明" %></p>
-      <p><strong>初出文献:</strong> <%= result["publishedIn"].presence || "不明" %></p>
-    </li>
+    <ul class="list-unstyled">
+      <% results.each do |result| %>
+        <li class="mb-4 p-3 border rounded shadow-sm text-center">
+          <% image_url = image_urls[result["key"]] %>
+          <% if image_url.present? %>
+            <img src="<%= image_url %>" alt="生物の画像" class="mb-3 img-fluid" style="max-width: 300px;">
+          <% else %>
+            <div class="text-center p-3 text-muted mb-3">画像は見つかりませんでした。</div>
+          <% end %>
+
+          <h5><strong>学名:</strong> <%= result["scientificName"] %></h5>
+          <p><strong>和名/英名:</strong> <%= result["vernacularName"].presence || "情報なし" %></p>
+          <p>
+            <strong>分類:</strong><br>
+            <%= result["kingdom"] %> /
+            <%= result["phylum"] %> /
+            <%= result["class"] %> /
+            <%= result["order"] %> /
+            <%= result["family"] %> /
+            <%= result["genus"] %>
+          </p>
+          <p><strong>命名者:</strong> <%= result["authorship"].presence || "不明" %></p>
+          <p><strong>初出文献:</strong> <%= result["publishedIn"].presence || "不明" %></p>
+          
+          <%= link_to "地図で見る", maps_path(taxon_key: result["key"]), class: 'btn btn-sm btn-outline-primary mt-2' %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-center text-danger" style="font-size: 0.9rem;">
+      検索結果がありません。別の学名かスペルを確認してください。
+    </p>
   <% end %>
-</ul>
+</div>

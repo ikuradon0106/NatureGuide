@@ -3,7 +3,7 @@ class Admin::NoticesController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @notices = Notice.order(created_at: :desc)
+    @notices = Notice.order(created_at: :desc).limit(5) # 最新5件だけ表示
     @notice = Notice.new
   end
 
@@ -15,7 +15,7 @@ class Admin::NoticesController < ApplicationController
 
     if @notice.save
       flash[:notice] = "お知らせを作成しました。"
-      redirect_to admin_notices_path
+      redirect_to admin_admin_path
     else
       flash.now[:alert] = "作成に失敗しました。入力内容を確認してください。"
       render :index
