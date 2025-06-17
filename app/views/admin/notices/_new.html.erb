@@ -1,19 +1,57 @@
-<%= form_with(model: [:admin, @notice], local: true) do |f| %>
-
-  <div class="mb-3">
-    <%= f.label :title, "タイトル", class: "form-label" %>
-    <%= f.text_field :title, class: "form-control", required: true %>
+<!-- お知らせ一覧表 -->
+<div class="card mb-4">
+  <div class="card-header">
+    お知らせ一覧
   </div>
-
-  <div class="mb-3">
-    <%= f.label :body, "本文", class: "form-label" %>
-    <%= f.text_area :body, class: "form-control", rows: 3, required: true %>
+  <div class="card-body">
+    <% if @notices.present? %>
+      <ul class="list-unstyled mb-4">
+        <% @notices.each do |notice| %>
+          <li class="mb-3 border-bottom pb-2">
+            <strong><%= notice.title %></strong><br>
+            <%= simple_format(notice.body) %><br>
+            <% if notice.published %>
+              <span class="badge bg-success">公開中</span>
+            <% else %>
+              <span class="badge bg-secondary">非公開</span>
+            <% end %>
+            <div class="mt-1">
+              <%= link_to '編集', edit_admin_notice_path(notice), class: 'btn btn-sm btn-outline-primary' %>
+              <%= link_to '削除', admin_notice_path(notice), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-outline-danger' %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+      <%= paginate @notices %>
+    <% else %>
+      <p class="text-muted mb-4">現在お知らせはありません。</p>
+    <% end %>
   </div>
+</div>
 
-  <div class="form-check mb-3">
-    <%= f.check_box :published, class: "form-check-input" %>
-    <%= f.label :published, "公開する", class: "form-check-label" %>
+<!-- 新規投稿フォーム -->
+<div class="card">
+  <div class="card-header">
+    お知らせ新規作成
   </div>
-  
-  <%= f.submit "投稿する", class: "btn btn-danger btn-sm" %>
-<% end %>
+  <div class="card-body">
+    <%= form_with(model: [:admin, @notice], local: true) do |f| %>
+      <div class="mb-3">
+        <%= f.label :title, "タイトル", class: "form-label" %>
+        <%= f.text_field :title, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :body, "本文", class: "form-label" %>
+        <%= f.text_area :body, class: "form-control", rows: 3, required: true %>
+      </div>
+
+      <div class="form-check mb-3">
+        <%= f.check_box :published, class: "form-check-input" %>
+        <%= f.label :published, "公開する", class: "form-check-label" %>
+      </div>
+
+      <%= f.submit "投稿する", class: "btn btn-danger btn-sm" %>
+    <% end %>
+  </div>
+</div>

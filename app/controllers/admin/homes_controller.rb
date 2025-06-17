@@ -4,5 +4,6 @@ class Admin::HomesController < ApplicationController
 
   def top
     @notice = Notice.new
+    @notices = Notice.order(created_at: :desc).page(params[:page]).per(5) # 5件だけ表示
   end
 end
