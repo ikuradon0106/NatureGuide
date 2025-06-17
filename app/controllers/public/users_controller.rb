@@ -7,6 +7,13 @@ class Public::UsersController < ApplicationController
     @user = current_user
     # 自分の投稿をページネーション付きで取得
     @user_posts = @user.posts.page(params[:page])
+
+    # お知らせ一覧の表示
+    @notices = Notice.where(published: true)
+                     .where("published_at <= ?", Time.current)
+                     .order(published_at: :desc)
+                     .page(params[:page])
+                     .per(5) 
   end
 
   # ユーザー詳細画面の表示

@@ -43,30 +43,38 @@
   <div class="row mb-4 ">
   <!-- 重要なお知らせ -->
   <div class="col-md-6">
-    <%= render 'admin/notices/index' %>
+    <%= render 'admin/notices/new' %>
   </div>
 
-  <!-- 最新の活動ログ -->
-  <div class="col-md-6">
-    <div class="card h-100">
+  <!-- 新規登録ユーザー＋最新投稿 -->
+  <div class="col-md-6 d-flex flex-column">
+    <!-- 新規登録ユーザー -->
+    <div class="card mb-3 flex-grow-1">
       <div class="card-header">
-        最新の活動ログ
+        新規登録ユーザー
       </div>
       <div class="card-body">
-        <h6>新規登録ユーザー</h6>
-        <ul class="list-unstyled">
+        <ul class="list-unstyled mb-0">
           <% User.order(created_at: :desc).limit(5).each do |user| %>
             <li class="mb-1">
-              <%= user.nickname %> <small class="text-muted">（<%= user.created_at.strftime("%Y-%m-%d") %>）</small>
-            </li>
+              <%= link_to user.nickname, admin_user_path(user), class: "text-decoration-none" %>
+              <small class="text-muted">（<%= user.created_at.strftime("%Y-%m-%d") %>）</small>
+             </li>
           <% end %>
         </ul>
+      </div>
+    </div>
 
-        <h6 class="mt-4">最新投稿</h6>
-        <ul class="list-unstyled">
+    <!-- 最新投稿 -->
+    <div class="card flex-grow-1">
+      <div class="card-header">
+        最新投稿
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mb-0">
           <% Post.order(created_at: :desc).limit(5).each do |post| %>
             <li class="mb-1">
-              <%= link_to post.title, admin_post_path(post), class: "text-decoration-none" %> 
+              <%= link_to post.title, admin_post_path(post), class: "text-decoration-none" %>
               <small class="text-muted">（<%= post.created_at.strftime("%Y-%m-%d") %>）</small>
             </li>
           <% end %>
