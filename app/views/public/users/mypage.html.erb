@@ -5,8 +5,10 @@
     <div class="col-md-4 mb-4">
       <%= render 'profile', user: @user %>
 
-    <!-- 左側下：管理者からのお知らせ -->
-      <%= render 'public/users/notices' %>
+      <!-- 左側下：管理者からのお知らせ -->
+      <div class="mt-4">
+        <%= render 'public/users/notices' %>
+      </div>
     </div>
     
 
