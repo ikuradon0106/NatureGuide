@@ -2,7 +2,7 @@
 class CreateGroupRequests < ActiveRecord::Migration[6.1]
   def change
     create_table :group_requests do |t|
-      t.integer :user_id, null: false
+      t.integer :user_id,  null: false
       t.integer :group_id, null: false
       # status: enumで状態管理，{0:申請前,1:申請中,2:許可済み,3:拒否}
       t.integer :status,   null: false, default: 0

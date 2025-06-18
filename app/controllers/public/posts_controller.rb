@@ -31,7 +31,9 @@ class Public::PostsController < ApplicationController
         # show.json..jbuilderを表示させる（as_jsonで@postをハッシュ形式のJSONに変換）
         render json: @post.as_json(only: [:id, :title, :body, :latitude, :longitude, :address])
       end
+
     end
+    
   end
 
   # 投稿データの保存
@@ -77,6 +79,7 @@ class Public::PostsController < ApplicationController
       # 投稿編集ページを再度表示
       render :edit
     end
+
   end
 
   # 投稿の削除処理
@@ -103,5 +106,7 @@ class Public::PostsController < ApplicationController
         # 投稿一覧ページに遷移し、不正アクセスを防止
         redirect_to posts_path
       end
+
     end
+
 end
