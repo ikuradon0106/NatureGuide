@@ -47,6 +47,7 @@ class Public::UsersController < ApplicationController
 
   # ユーザー退会処理（ステータスの更新）
   def withdraw
+
     if current_user.update(is_active: false)
       flash[:notice] = "退会手続きが完了しました。ご利用いただきありがとうございました。"
       # セッション情報をすべて削除
@@ -58,6 +59,7 @@ class Public::UsersController < ApplicationController
       # マイページに遷移
       redirect_to mypage_path
     end
+
   end
 
 
@@ -66,4 +68,5 @@ class Public::UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :nickname, :user_image, :introduction)
     end
+    
 end
