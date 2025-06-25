@@ -41,6 +41,7 @@ class Public::GroupsController < ApplicationController
 
   # グループ編集画面の表示
   def edit
+    ensure_group_owner
     @group = Group.find(params[:id])
   end
 
@@ -68,9 +69,20 @@ class Public::GroupsController < ApplicationController
     redirect_to groups_path
   end
 
-  # グループのストロングパラメータ（許可されたパラメータのみを取得）
+  
   private
-    def group_params
-      params.require(:group).permit(:group_image, :group_name, :description)
+
+   # グループのストロングパラメータ（許可されたパラメータのみを取得）
+  def group_params
+    params.require(:group).permit(:group_image, :group_name, :description)
+  end
+
+  # ユーザーが作成したグループを編集しないようにする記述
+  def ensure_group_owner
+    unless @group.owner_id == current_user.id
+      flash[:alert] = "他のユーザーが作成したグループは編集できません。"
+      redirect_to groups_path
     end
+  end
+
 end

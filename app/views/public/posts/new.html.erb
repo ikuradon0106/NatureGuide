@@ -35,12 +35,12 @@
 
             <div class="mb-3">
               <%= f.label :address, "住所（必須）", class: "form-label" %>
-              <%= f.text_field :address, class: "form-control", placeholder: "住所を入力してください" %>
+              <%= f.text_field :address,required: true, class: "form-control", placeholder: "住所を入力してください" %>
             </div>
 
             <div class="mb-3">
               <%= f.label :image, "写真アップロード", class: "form-label" %><br>
-              <%= f.file_field :image %>
+              <%= f.file_field :image, required: true %>
             </div>
 
             <div class="d-flex justify-content-end">
